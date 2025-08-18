@@ -1,0 +1,67 @@
+networks:
+  sentinel-test:
+    driver: bridge
+
+volumes:
+  elasticsearch-test-data:
+    driver: local
+  kibana-test-data:
+    driver: local
+
+services:
+  # Elasticsearch 9.1.2 (Fixed)
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.1.2
+    container_name: sentinel-test-elasticsearch
+    hostname: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=sentinel-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - xpack.security.enabled=false  # Simplified for development
+      - xpack.license.self_generated.type=basic
+      - action.auto_create_index=true
+    volumes:
+      - elasticsearch-test-data:/usr/share/elasticsearch/data
+      - ./configs/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - sentinel-test
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    mem_limit: 2g
+
+  # Kibana 9.1.2 (Fixed - no elastic user)
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.1.2
+    container_name: sentinel-test-kibana
+    hostname: kibana
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      # Removed ELASTICSEARCH_USERNAME and ELASTICSEARCH_PASSWORD
+      - TELEMETRY_ENABLED=false
+    volumes:
+      - kibana-test-data:/usr/share/kibana/data
+      - ./configs/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - sentinel-test
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:5601/api/status || exit 1"]
+      interval: 45s
+      timeout: 15s
+      retries: 8
+      start_period: 120s
+    mem_limit: 1.5g

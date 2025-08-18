@@ -1,0 +1,77 @@
+networks:
+  test-net:
+    driver: bridge
+
+volumes:
+  es-data:
+    driver: local
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: test-es
+    hostname: elasticsearch
+    environment:
+      - node.name=elasticsearch-node
+      - cluster.name=test-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=changeme123!
+      - xpack.license.self_generated.type=basic
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - ./configs/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - test-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    mem_limit: 2g
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: test-kibana
+    hostname: kibana
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme123!
+    volumes:
+      - ./configs/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - test-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    mem_limit: 1g
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: test-logstash
+    hostname: logstash
+    environment:
+      - "LS_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./configs/elk/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./configs/elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./configs/elk/logstash/conf.d:/usr/share/logstash/pipeline:ro
+    ports:
+      - "8080:8080"
+      - "9600:9600"
+    networks:
+      - test-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    mem_limit: 1g

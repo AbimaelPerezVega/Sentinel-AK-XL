@@ -1,0 +1,5 @@
+node.name: logstash-node
+path.data: /usr/share/logstash/data
+http.host: 0.0.0.0
+http.port: 9600
+log.level: info
