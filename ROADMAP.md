@@ -1,117 +1,105 @@
-# 🗺️ Sentinel AK-XL - Roadmap de Componentes
+# 🗺️ Sentinel AK-XL - Component Roadmap
 
-## ✅ Lo que YA funciona (Fase 1-2 completada)
+## ✅ **Phase 1 & 2: Core Infrastructure (Completed)**
 
-### Core Infrastructure ✅
-- **Elasticsearch**: Funcionando perfectamente
-- **Logstash**: Funcionando perfectamente
-- **Kibana**: En proceso (98% funcional)
+### Core ELK Stack ✅
+- **Elasticsearch**: Fully functional and stable.
+- **Logstash**: Fully functional, processing data correctly.
+- **Kibana**: Fully functional, data view created and ready for dashboards.
 
-### Configuraciones ✅
-- **Docker Compose**: Configurado y probado
-- **Configurations**: ELK configs creados
-- **Environment**: Variables de entorno configuradas
-- **Scripts**: Sistema de testing unificado
+### Configuration & Scripts ✅
+- **Docker Compose**: Stable, configured, and tested.
+- **Configuration Files**: All ELK configs are created and version-compatible.
+- **Environment**: Environment variables are set up.
+- **Scripts**: Unified setup (`create-perfect-setup.sh`) and management (`start-elk.sh`, `status-elk.sh`) scripts are complete.
 
-## 🚧 Lo que falta implementar
+---
 
-### Fase 3: SIEM & Detection (Alta Prioridad)
-- [ ] **Wazuh Manager** - HIDS principal
-- [ ] **Wazuh Dashboard** - Interface web
-- [ ] **Detection Rules** - Reglas de detección
-- [ ] **Agent Simulation** - Endpoints simulados
+## 🚧 **What's Next: Future Phases**
 
-### Fase 4: Incident Response (Media Prioridad)
-- [ ] **TheHive** - Gestión de casos
-- [ ] **Cortex** - Análisis de observables
-- [ ] **Case Templates** - Plantillas de incidentes
-- [ ] **Playbooks** - Procedimientos automatizados
+### Phase 3: SIEM & Detection (High Priority)
+- [ ] **Wazuh Manager**: Integrate the main HIDS.
+- [ ] **Wazuh Dashboard**: Set up the Wazuh interface in Kibana.
+- [ ] **Detection Rules**: Create custom rules for Wazuh.
+- [ ] **Agent Simulation**: Deploy simulated endpoints to generate data.
 
-### Fase 5: Automation & SOAR (Baja Prioridad)
-- [ ] **Shuffle** - Orquestación SOAR
-- [ ] **Ansible** - Automatización de respuesta
-- [ ] **Workflow Templates** - Flujos automatizados
+### Phase 4: Incident Response (Medium Priority)
+- [ ] **TheHive**: Set up the case management platform.
+- [ ] **Cortex**: Integrate the observable analysis engine.
+- [ ] **Case Templates**: Create templates for common incident types.
+- [ ] **Playbooks**: Develop standardized response procedures.
 
-### Fase 6: Training Scenarios (Muy Importante)
-- [ ] **Scenario Engine** - Motor de escenarios
-- [ ] **Event Generators** - Generadores de eventos
-- [ ] **Training Data** - Datos de entrenamiento
-- [ ] **Progress Tracking** - Seguimiento de progreso
+### Phase 5: Automation & SOAR (Low Priority)
+- [ ] **Shuffle**: Implement the SOAR orchestration tool.
+- [ ] **Ansible**: Develop automated response playbooks.
+- [ ] **Workflow Templates**: Create automated response workflows.
 
-## 🎯 Próximos pasos inmediatos
+### Phase 6: Training Scenarios (High Importance)
+- [ ] **Scenario Engine**: Build a script to launch and manage scenarios.
+- [ ] **Event Generators**: Create scripts to simulate attacks.
+- [ ] **Training Data**: Develop realistic synthetic data sets.
+- [ ] **Progress Tracking**: Implement a way to track analyst training progress.
 
-### 1. Arreglar Kibana (Hoy) 🔥
-```bash
-# Verificar si Kibana está funcionando
-./test-elk.sh status
-docker compose -f docker-compose-test.yml logs kibana
+---
+
+## 🎯 **Immediate Next Steps**
+
+### 1. Kibana Dashboard Creation (This Week) 📊
+- **Task**: Design and create the main SOC dashboards, visualizations, and graphs.
+- **Owner**: [Teammate's Name]
+- **Action**: Use the Kibana UI to build the dashboards and the `sync-dashboards.sh` script to commit the `.ndjson` file to the repository.
+
+### 2. Wazuh Integration (This Week) 🛡️
+- **Task**: Add the Wazuh Manager and Wazuh Dashboard services to `docker-compose.yml`.
+- **Action**:
+    - Configure the Wazuh Manager (`ossec.conf`).
+    - Connect Wazuh to the existing Elasticsearch instance.
+    - Verify that Wazuh alerts appear in Kibana.
+
+### 3. Basic Training Scenarios (Next Week) 🎮
+- **Task**: Develop the first simple training scenarios.
+- **Action**:
+    - Simulate basic malware alerts.
+    - Generate brute-force attack logs.
+    - Simulate lateral movement patterns.
+
+---
+
+## 📊 **Current Project Status**
+
 ```
+Overall Progress: ███░░░░░░░░░░░ 25%
 
-### 2. Crear setup de una línea (Hoy) 🚀
-```bash
-# Para tus compañeros
-chmod +x one-command-setup.sh
-./one-command-setup.sh
-```
-
-### 3. Wazuh Integration (Esta semana) 📊
-- Configurar Wazuh Manager
-- Conectar con Elasticsearch
-- Crear reglas básicas de detección
-
-### 4. Training Scenarios (Próxima semana) 🎮
-- Escenarios básicos de malware
-- Ataques de fuerza bruta
-- Movimiento lateral simulado
-
-## 📊 Estado actual del proyecto
-
-```
-Progreso General: ████████░░ 80%
-
-✅ Infrastructure:    ████████████ 100%
-✅ ELK Stack:         ██████████░░  90%
+✅ Core Infrastructure: ████████████ 100%
+✅ ELK Stack Setup:   ████████████ 100%
 🚧 SIEM (Wazuh):      ░░░░░░░░░░░░   0%
 🚧 Incident Response: ░░░░░░░░░░░░   0%
 🚧 SOAR:              ░░░░░░░░░░░░   0%
-🚧 Training:          ░░░░░░░░░░░░   0%
+🚧 Training Content:  ░░░░░░░░░░░░   0%
 ```
 
-## 🎯 Definición de "Completado"
+## 🎯 **Definition of "Done"**
 
-Para que el proyecto esté **listo para producción**:
+For the project to be considered ready for its first training simulation:
 
-1. **Core SOC** ✅
-   - [x] Elasticsearch funcionando
-   - [x] Logstash procesando eventos
-   - [ ] Kibana 100% funcional
-   - [ ] Dashboards básicos configurados
+1.  **Core SOC** ✅
+    - [x] Elasticsearch is running.
+    - [x] Logstash is processing events.
+    - [x] Kibana is 100% functional.
+    - [ ] Basic SOC dashboards are configured.
 
-2. **Detection & Response** 
-   - [ ] Wazuh detectando amenazas
-   - [ ] TheHive gestionando casos
-   - [ ] 10+ reglas de detección configuradas
+2.  **Detection & Response**
+    - [ ] Wazuh is detecting threats from agents.
+    - [ ] TheHive is creating cases from alerts.
+    - [ ] At least 10+ detection rules are configured.
 
-3. **Training Environment**
-   - [ ] 5+ escenarios de entrenamiento
-   - [ ] Datos sintéticos realistas
-   - [ ] Guías de entrenamiento
+3.  **Training Environment**
+    - [ ] At least 5+ training scenarios are available.
+    - [ ] Realistic synthetic data can be generated.
+    - [ ] Training guides for analysts are written.
 
-4. **Ease of Use**
-   - [x] Instalación en un comando
-   - [ ] Documentación completa
-   - [ ] Troubleshooting guide
+4.  **Ease of Use** ✅
+    - [x] Installation is handled by the setup script.
+    - [x] The `README.md` provides complete documentation.
+    - [x] A troubleshooting guide is available.
 
-## 💡 Recomendación de enfoque
-
-**Para tus compañeros (ahora mismo):**
-1. Usar `./one-command-setup.sh`
-2. Verificar con `./test-elk.sh status`
-3. Acceder a Elasticsearch en http://localhost:9200
-
-**Para el desarrollo (siguiente sprint):**
-1. Completar Kibana al 100%
-2. Integrar Wazuh básico
-3. Crear 3 escenarios de entrenamiento simples
-
-¿Cuál de estas fases quieres que prioricemos?
