@@ -3,6 +3,9 @@
 logs/
 setup.log
 
+# Random
+next-to-do.md
+
 # Data directories
 data/
 .env.local
