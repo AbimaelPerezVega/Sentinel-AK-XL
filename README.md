@@ -1,4 +1,4 @@
-# Sentinel AK-XL - Visual Security Operations Center
+# Sentinel AK-XL - Virtual Security Operations Center
 
 A comprehensive cybersecurity operations platform built with ELK Stack 9.1.2 and integrated security tools.
 
