@@ -1,21 +1,47 @@
-# Sentinel AK-XL - Visual Security Operations Center Architecture
+# Sentinel AK-XL - Visual Security Operations Center
 
 A comprehensive cybersecurity operations platform built with ELK Stack 9.1.2 and integrated security tools.
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- 8GB+ RAM (4GB minimum)
-- 20GB+ free disk space
+This project uses a setup script to generate the necessary configuration files before you can start the services.
 
-### One-Command Setup
+### Prerequisites
+
+* Docker Engine 20.10+
+* Docker Compose 2.0+
+* 8GB+ RAM (16GB+ recommended for better performance)
+* 20GB+ free disk space
+
+### Installation (Three Simple Steps)
+
+**Step 1: Clone the Repository**
+
 ```bash
 git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
+
 cd Sentinel-AK-XL
+```
+
+**Step 2: Run the Setup Script**
+
+First, you need to generate all the required configuration files. This script will check your system and create a bulletproof setup.
+
+```bash
+# Make the script executable
+chmod +x create-perfect-setup.sh
+
+# Run the setup script (answer 'y' when prompted)
+./create-perfect-setup.sh
+```
+
+**Step 3: Start the ELK Stack**
+Once the setup is complete, you can start all the services with a single command.
+
+```bash
 ./start-elk.sh
 ```
+
 
 ### Access Points
 - **Elasticsearch**: http://localhost:9200
