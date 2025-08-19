@@ -21,6 +21,9 @@ This project uses a setup script to generate the necessary configuration files b
 git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
 
 cd Sentinel-AK-XL
+
+# Create the .env file and add the variables
+touch .env
 ```
 
 **Step 2: Run the Setup Script**
