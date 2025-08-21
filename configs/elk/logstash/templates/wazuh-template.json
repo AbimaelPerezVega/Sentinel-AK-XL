@@ -1,0 +1,46 @@
+{
+  "index_patterns": ["wazuh-alerts-*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "refresh_interval": "5s"
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "rule": {
+          "properties": {
+            "level": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "text"
+            },
+            "id": {
+              "type": "keyword"
+            }
+          }
+        },
+        "agent": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "location": {
+          "type": "text"
+        },
+        "full_log": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

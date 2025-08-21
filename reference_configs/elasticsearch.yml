@@ -1,0 +1,22 @@
+# Elasticsearch 9.1.2 Compatible Configuration
+cluster.name: sentinel-cluster
+node.name: elasticsearch
+discovery.type: single-node
+
+# Network
+network.host: 0.0.0.0
+http.port: 9200
+
+# Security (basic setup for development)
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+xpack.license.self_generated.type: basic
+
+# Performance and stability
+bootstrap.memory_lock: false
+action.auto_create_index: true
+indices.query.bool.max_clause_count: 10240
+
+# Memory settings (CORRECT: underscore not dot)
+cluster.routing.allocation.disk.threshold_enabled: false

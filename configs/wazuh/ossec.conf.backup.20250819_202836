@@ -216,7 +216,6 @@
     </synchronization>
   </syscheck>
 
-  <!-- FIXED: Command definitions with proper <name> tags (not <n>) -->
   <command>
     <name>disable-account</name>
     <executable>disable-account</executable>
@@ -265,5 +264,40 @@
     <level>6</level>
     <timeout>600</timeout>
   </active-response>
+
+  <!-- Wazuh API Configuration -->
+  <api>
+    <enabled>yes</enabled>
+    <host>0.0.0.0</host>
+    <port>55000</port>
+    <use_only_authd>no</use_only_authd>
+    <drop_privileges>no</drop_privileges>
+    <experimental_features>no</experimental_features>
+    <max_upload_size>10485760</max_upload_size>
+    <https>
+      <enabled>yes</enabled>
+      <key>/var/ossec/api/configuration/ssl/server.key</key>
+      <cert>/var/ossec/api/configuration/ssl/server.crt</cert>
+      <use_ca>no</use_ca>
+      <ssl_protocol>auto</ssl_protocol>
+      <ssl_ciphers></ssl_ciphers>
+    </https>
+    <cors>
+      <enabled>no</enabled>
+      <source_route>*</source_route>
+      <expose_headers>*</expose_headers>
+      <allow_headers>*</allow_headers>
+      <allow_credentials>no</allow_credentials>
+    </cors>
+    <cache>
+      <enabled>yes</enabled>
+      <time>0.750</time>
+    </cache>
+    <access>
+      <max_login_attempts>50</max_login_attempts>
+      <block_time>300</block_time>
+      <max_request_per_minute>300</max_request_per_minute>
+    </access>
+  </api>
 
 </ossec_config>

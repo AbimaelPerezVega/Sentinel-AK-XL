@@ -1,4 +1,4 @@
-log.level: ${LOG_LEVEL}
-xpack.monitoring.elasticsearch.hosts:
-- http://elasticsearch:9200
 xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+api.http.host: "0.0.0.0"
+api.http.port: 9600
