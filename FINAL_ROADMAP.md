@@ -1,14 +1,12 @@
 # 🗺️ Sentinel AK-XL - Updated Roadmap
 
-## 📋 Strategic Alignment: Virtual SOC Setup
-
-### 🎯 New School Requirements Analysis
+## 📋 Virtual SOC Develpment
 
 **Objective:** Deploy complete SOC environment for centralized monitoring  
 **Core Tools:** ELK Stack + Wazuh + Sysmon   
 **Focus:** Dashboards + Alert workflows + Simulation scripts + SOC procedures  
 **Timeline:** 1 month delivery  
-**Team:** 4-5 members
+**Team:** 4 members
 
 ---
 
