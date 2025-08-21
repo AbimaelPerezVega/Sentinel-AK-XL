@@ -1,6 +1,6 @@
-# 🗺️ Sentinel AK-XL - Updated Roadmap
+# 🗺️ Sentinel AK-XL - Final Roadmap
 
-## 📋 Virtual SOC Develpment
+## 📋 Virtual SOC Development
 
 **Objective:** Deploy complete SOC environment for centralized monitoring  
 **Core Tools:** ELK Stack + Wazuh + Sysmon   
