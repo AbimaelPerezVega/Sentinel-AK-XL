@@ -152,7 +152,7 @@
 
 | Phase | Owner | Focus | Dependencies |
 |-------|-------|--------|--------------|
-| **Phase 4** | **Abimael** | Dashboards & Visualizations | Needs Xavier's endpoint data |
+| **Phase 4** | **Abimael & Kryss** | Dashboards & Visualizations | Needs Xavier's endpoint data |
 | **Phase 5** | **Xavier** | Endpoint Monitoring & Log Enrichment | Foundation for other phases |
 | **Phase 6** | **Luis** | Attack Simulations & Testing | Needs Xavier's endpoints to attack |
 | **Phase 7** | **Team** | Documentation & Procedures | Combines all previous work |
@@ -167,17 +167,17 @@
 ---
 
 ## 📊 Overall Project Status
+```
+**Overall Progress:**  ██████████████████░░  85%
 
-**Overall Progress:** ██████████████████░░ 85%
-
-- ✅ **Infrastructure:** ████████████████████ 100%
-- ✅ **ELK Stack:** ████████████████████ 100%
-- ✅ **SIEM Core:** ███████████████████░ 95%
-- 🚧 **SOC Dashboards:** ███████░░░░░░░░░░░░░ 35%
+- ✅ **Infrastructure:**      ████████████████████ 100%
+- ✅ **ELK Stack:**           ████████████████████ 100%
+- ✅ **SIEM Core:**           ███████████████████░ 95%
+- 🚧 **SOC Dashboards:**      ███████░░░░░░░░░░░░░ 35%
 - 🚧 **Endpoint Monitoring:** █████░░░░░░░░░░░░░░░ 25%
-- 🚧 **Attack Simulation:** ███░░░░░░░░░░░░░░░░░ 15%
-- 🚧 **Documentation:** ██░░░░░░░░░░░░░░░░░░ 10%
-
+- 🚧 **Attack Simulation:**   ███░░░░░░░░░░░░░░░░░ 15%
+- 🚧 **Documentation:**       ██░░░░░░░░░░░░░░░░░░ 10%
+```
 ---
 
 ## 🎯 School Deliverables Mapping
