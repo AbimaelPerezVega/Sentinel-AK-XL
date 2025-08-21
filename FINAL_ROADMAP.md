@@ -35,82 +35,85 @@
 
 ---
 
-## 🚧 Implementation Phases - School Requirements
+# 🚧 Implementation Phases - School Requirements
 
-### Phase 4: SOC Dashboards & Log Enrichment 🎯
-
+## Phase 4: SOC Dashboards & Visualizations 🎯 **(Abimael Pérez and Kryss)**
 **Priority:** HIGH | **Alignment:** Week 2 School Timeline
 
-#### Core Components
-
-**Security Operations Dashboard**
+### Part 1: Security Operations Dashboard
 - Real-time threat monitoring views
 - Alert prioritization and triage interface
 - Security metrics and KPIs
 - Executive summary dashboards
 
-**Log Enrichment Pipeline**
-- Geo-IP location mapping
-- Threat intelligence integration
-- IOC enrichment automation
-- Risk scoring algorithms
-
-**Advanced Visualizations**
+### Part 2: Advanced Visualizations
 - MITRE ATT&CK framework mapping
 - Attack timeline reconstruction
 - Network topology views
 - Threat actor attribution
 
+### Part 3: Dashboard Development
+- Kibana dashboard creation
+- Visualization development
+- KPI and metrics displays
+- Executive summary views
+
 **Status:** ████████░░░░░░░░░░░░ 35%  
 **School Deliverable:** Professional SOC dashboards
 
-### Phase 5: Endpoint Monitoring & Sysmon Integration 🎯
+---
 
+## Phase 5: Endpoint Monitoring & Sysmon Integration 🎯 **(Xavier Cruz)**
 **Priority:** HIGH | **Alignment:** Week 1 School Timeline
 
-#### Core Components
-
-**Sysmon Deployment**
+### Part 1: Sysmon Deployment
 - Windows endpoint agents
 - Process creation monitoring
 - Network connection tracking
 - File creation/modification alerts
 
-**Agent Management**
+### Part 2: Agent Management
 - Automated agent deployment
 - Centralized configuration management
 - Health monitoring and alerting
 - Log forwarding optimization
 
-**Enhanced Detection**
+### Part 3: Log Enrichment Pipeline
+- Geo-IP location mapping
+- Threat intelligence integration
+- IOC enrichment automation
+- Risk scoring algorithms
+
+### Part 4: Enhanced Detection
 - Behavioral analysis rules
-- Anomaly detection algorithms
+- Custom detection rules for endpoint events
 - Correlation across endpoints
 - Advanced persistent threat detection
 
 **Status:** ██████░░░░░░░░░░░░░░ 25%  
 **School Deliverable:** Comprehensive endpoint monitoring
 
-### Phase 6: Attack Simulation Engine 🎯
+---
 
+## Phase 6: Attack Simulation Engine 🎯 **(Luis Soto)**
 **Priority:** HIGH | **Alignment:** Week 3 School Timeline
 
-#### Core Components
-
-**Simulated Attack Scenarios**
+### Part 1: Simulated Attack Scenarios
 - Brute force authentication attacks
 - Malware execution simulation
 - Network port scanning
 - Lateral movement techniques
 - Data exfiltration attempts
 
-**Automated Attack Generation**
+### Part 2: Automated Attack Generation
 - Python-based simulation scripts
 - Realistic attack patterns
 - Graduated difficulty levels
 - Multi-stage attack campaigns
 
-**Alert Validation**
+### Part 3: Attack Documentation & Testing
+- Attack scenario design
+- Alert validation testing
 - End-to-end detection testing
 - False positive identification
 - Alert tuning recommendations
@@ -119,25 +122,24 @@
 **Status:** ███░░░░░░░░░░░░░░░░░ 15%  
 **School Deliverable:** Simulation scripts + attack documentation
 
-### Phase 7: SOC Operations & Documentation 🎯
+---
 
+## Phase 7: SOC Operations & Documentation 🎯 **(Team Collaboration)**
 **Priority:** MEDIUM | **Alignment:** Week 4 School Timeline
 
-#### Core Components
-
-**Analyst Playbooks**
+### Part 1: Analyst Playbooks
 - Incident response procedures
 - Investigation workflows
 - Escalation protocols
 - Evidence collection guidelines
 
-**SOC Workflow Documentation**
+### Part 2: SOC Workflow Documentation
 - Alert triage procedures
 - Case management processes
 - Reporting standards
 - Training materials
 
-**Operational Procedures**
+### Part 3: Operational Procedures
 - Daily operations checklist
 - Maintenance procedures
 - Backup and recovery plans
@@ -145,6 +147,24 @@
 
 **Status:** ██░░░░░░░░░░░░░░░░░░ 10%  
 **School Deliverable:** Complete SOC procedure guide
+
+---
+
+## 👥 Team Responsibility Matrix
+
+| Phase | Owner | Focus | Dependencies |
+|-------|-------|--------|--------------|
+| **Phase 4** | **Abimael** | Dashboards & Visualizations | Needs Xavier's endpoint data |
+| **Phase 5** | **Xavier** | Endpoint Monitoring & Log Enrichment | Foundation for other phases |
+| **Phase 6** | **Luis** | Attack Simulations & Testing | Needs Xavier's endpoints to attack |
+| **Phase 7** | **Team** | Documentation & Procedures | Combines all previous work |
+
+## 🚀 Implementation Timeline
+
+1. **Week 1**: Xavier completes Sysmon integration and log enrichment
+2. **Week 2**: Abimael builds dashboards using Xavier's endpoint data  
+3. **Week 3**: Luis creates simulations targeting Xavier's endpoints
+4. **Week 4**: Team collaborates on documentation and procedures
 
 ---
 
@@ -253,19 +273,3 @@ Endpoints (Sysmon) → Wazuh Agents → Wazuh Manager → Logstash → Elasticse
 - **Documentation:** Real-time procedure updates
 
 ---
-
-## 🎯 Competitive Advantages
-
-### Beyond School Requirements
-- **Real-time Threat Intelligence:** Live IOC enrichment
-- **Advanced Analytics:** ML-based anomaly detection
-- **Automated Response:** Basic SOAR capabilities
-- **Enterprise Readiness:** Production-quality implementation
-
-### Portfolio Value
-- **Custom Development:** Python automation scripts
-- **Integration Expertise:** Multi-tool orchestration
-- **Security Knowledge:** Real-world SOC operations
-- **Documentation Skills:** Professional procedure guides
-
-**Status:** Ready to proceed with Phase 5 (Sysmon Integration) → Phase 4 (SOC Dashboards)
