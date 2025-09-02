@@ -1,15 +1,3 @@
-# === Secrets / Certs ===
-# Claves privadas (cualquier carpeta)
-*.key
-*-key.pem
-
-# Certs sensibles en rutas habituales
-wazuh-certificates/*.key
-wazuh-certificates/*-key.pem
-configs/wazuh/ssl_certs/*.key
-#
-configs/wazuh/ssl_certs/*.pem
-configs/wazuh/ssl_certs/*-key.pem
 
 # Logs
 *.log
@@ -22,6 +10,27 @@ configs/wazuh/geoip/GeoLite2-City.mmdb
 
 # Do not remove or comment this
 ./configs/wazuh/generated/ossec.conf
+
+# === Certs ===
+# Claves privadas (cualquier carpeta)
+*.key
+*-key.pem
+*-ca.pem
+
+wazuh-certificates/*
+wazuh-certificates/*.key
+wazuh-certificates/*-key.pem
+configs/wazuh/ssl_certs/*.key
+#
+configs/wazuh/ssl_certs/*.pem
+configs/wazuh/ssl_certs/*-key.pem
+
+wazuh-certificates/admin.pem
+wazuh-certificates/root-ca.pem
+wazuh-certificates/wazuh-dashboard.pem
+wazuh-certificates/wazuh-indexer.pem
+wazuh-certificates/wazuh-manager.pem
+
 
 # Data directories
 data/
