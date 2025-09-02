@@ -1,0 +1,94 @@
+{
+  "index_patterns": ["wazuh-alerts-*"],
+  "priority": 1,
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "index.refresh_interval": "5s"
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "timestamp": {
+          "type": "date"
+        },
+        "rule": {
+          "properties": {
+            "level": {
+              "type": "long"
+            },
+            "description": {
+              "type": "text"
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "mitre": {
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                },
+                "tactic": {
+                  "type": "keyword"
+                },
+                "technique": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "agent": {
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "data": {
+          "properties": {
+            "win": {
+              "properties": {
+                "eventdata": {
+                  "properties": {
+                    "image": {
+                      "type": "keyword"
+                    },
+                    "processId": {
+                      "type": "keyword"
+                    },
+                    "commandLine": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "decoder": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            }
+          }
+        },
+        "location": {
+          "type": "keyword"
+        },
+        "full_log": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

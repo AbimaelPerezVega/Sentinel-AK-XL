@@ -1,0 +1,19 @@
+# Logstash main configuration
+node.name: logstash
+# HTTP API settings (sintaxis correcta para 9.x)
+api.http.host: "0.0.0.0"
+api.http.port: 9600
+# Performance settings
+pipeline.workers: 1
+pipeline.batch.size: 125
+pipeline.batch.delay: 50
+# Path settings
+path.data: /usr/share/logstash/data
+path.logs: /usr/share/logstash/logs
+# Disable monitoring
+monitoring.enabled: false
+xpack.monitoring.enabled: false
+# Pipeline settings
+pipeline.ecs_compatibility: disabled
+# Logging
+log.level: info

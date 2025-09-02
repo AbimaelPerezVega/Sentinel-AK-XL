@@ -1,0 +1,31 @@
+# configs/elk/filebeat/filebeat.yml
+# === Filebeat sidecar para leer Wazuh alerts.json ===
+strict.perms: false
+
+filebeat.inputs:
+  - type: filestream
+    id: wazuh-alerts
+    enabled: true
+    paths: ["/var/ossec/logs/alerts/alerts.json"]
+
+    # Cada línea es JSON (NDJSON)
+    parsers:
+      - ndjson:
+          overwrite_keys: true
+          add_error_key: true
+
+    # Permite arrancar aunque el archivo sea pequeño (<1024 bytes)
+    prospector.scanner.fingerprint.length: 64
+    prospector.scanner.fingerprint.offset: 0
+
+    # Se tuvo que comentar esto porque estaba dando problemas
+    processors:
+    #  - rename:
+    #      fields:
+    #        - from: "timestamp"
+    #         to: "@timestamp"
+    #      ignore_missing: true
+
+# Salida a Logstash (input beats en 5044)
+output.logstash:
+  hosts: ["logstash:5044"]

@@ -1,0 +1,6 @@
+<decoder name="iptables-custom-drop">
+  <parent>kernel</parent>
+  <prematch>^\sIPTABLES-DROP:</prematch>
+  <regex>SRC=(\S+) DST=(\S+) .* PROTO=(\S+) SPT=(\d+) DPT=(\d+)</regex>
+  <order>srcip, dstip, protocol, srcport, dstport</order>
+</decoder>

@@ -1,0 +1,241 @@
+# ./docker-compose.yml
+# Sentinel SOC AK-XL - UNIFIED STACK
+networks:
+  sentinel-network:
+    name: sentinel-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  elasticsearch-data:
+  kibana-data:
+  logstash-data:
+  wazuh-indexer-data:
+  wazuh-logs:      # /var/ossec/logs
+  wazuh-data:      # /var/ossec/data (FIM)
+  #wazuh-etc:
+
+services:
+  # --- ELK STACK ---
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.1.2
+    container_name: sentinel-elasticsearch
+    hostname: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=sentinel-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./configs/elk/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    ports:
+      - "9200:9200"
+    networks:
+      sentinel-network:
+        ipv4_address: 172.20.0.10
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.1.2
+    container_name: sentinel-kibana
+    hostname: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    volumes:
+      - kibana-data:/usr/share/kibana/data
+      - ./configs/elk/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    ports:
+      - "5601:5601"
+    networks:
+      sentinel-network:
+        ipv4_address: 172.20.0.11
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.1.2
+    container_name: sentinel-logstash
+    hostname: logstash
+    environment:
+      - "LS_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "LOG_LEVEL=info"
+      - "API_HTTP_HOST=0.0.0.0"
+      - "API_HTTP_PORT=9600"
+    volumes:
+      - ./configs/elk/logstash/conf.d:/usr/share/logstash/pipeline/:ro
+      - ./configs/wazuh/geoip:/usr/share/logstash/geoip:ro
+      - ./configs/wazuh/ssl_certs/root-ca.pem:/usr/share/logstash/certs/root-ca.pem:ro
+    command: logstash -f /usr/share/logstash/pipeline
+    ports:
+      - "5044:5044"
+      - "8080:8080"
+      - "9600:9600"
+    networks:
+      sentinel-network:
+        ipv4_address: 172.20.0.12
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9600 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  # --- BOOTSTRAP para sembrar rutas/archivos en volúmenes nuevos ---
+  wazuh-bootstrap:
+    image: alpine:3.19
+    container_name: sentinel-wazuh-bootstrap
+    command: >
+      sh -lc "
+        mkdir -p /var/ossec/logs/test /var/ossec/data/fimtest &&
+        : > /var/ossec/logs/test/sshd.log &&
+        : > /var/ossec/logs/test/network.log
+      "
+    volumes:
+      - wazuh-logs:/var/ossec/logs
+      - wazuh-data:/var/ossec/data
+    networks:
+      - sentinel-network
+    restart: "no"
+  
+  # Generate ./configs/wazuh/generated/ossec.conf and extract API-KEY value
+  wazuh-ossec-templater:
+    image: alpine:3.19
+    container_name: sentinel-wazuh-ossec-templater
+    environment:
+      VIRUSTOTAL_API_KEY: ${VIRUSTOTAL_API_KEY}
+    command: >
+      sh -lc 'apk add --no-cache gettext >/dev/null &&
+              mkdir -p /out &&
+              envsubst < /in/ossec.conf.tpl > /out/ossec.conf &&
+              echo "Rendered /out/ossec.conf"'
+    volumes:
+      - ./configs/wazuh/ossec.conf.tpl:/in/ossec.conf.tpl:ro
+      - ./configs/wazuh/generated:/out
+    networks:
+      - sentinel-network
+    restart: "no"
+
+
+  # --- WAZUH STACK ---
+  wazuh-indexer:
+    image: wazuh/wazuh-indexer:4.12.0
+    container_name: sentinel-wazuh-indexer
+    hostname: wazuh-indexer
+    environment:
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${WAZUH_INDEXER_PASSWORD}
+    volumes:
+      # 🔒 data (recomiendo reactivarlo para persistir)
+      - wazuh-indexer-data:/var/lib/wazuh-indexer
+      # ✅ monta conf y certs en EL PATH EFECTIVO
+      - ./configs/wazuh/indexer/wazuh.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml:ro
+      - ./wazuh-certificates/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem:ro
+      - ./wazuh-certificates/wazuh-indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer.pem:ro
+      - ./wazuh-certificates/wazuh-indexer-key.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer-key.pem:ro
+      - ./wazuh-certificates/admin.pem:/usr/share/wazuh-indexer/certs/admin.pem:ro
+      - ./wazuh-certificates/admin-key.pem:/usr/share/wazuh-indexer/certs/admin-key.pem:ro
+    ports:
+      - "9201:9200"
+    networks:
+      sentinel-network:
+        ipv4_address: 172.20.0.20 # --- IP ESTÁTICA ASIGNADA ---
+    # --- HEALTHCHECK REMOVED TO ALLOW PROPER INITIALIZATION ---
+
+  wazuh-manager:
+    image: wazuh/wazuh-manager:4.12.0
+    container_name: sentinel-wazuh-manager
+    hostname: wazuh-manager
+    environment:
+      - INDEXER_URL=https://172.20.0.20:9200
+      #- INDEXER_URL=https://wazuh-indexer:9200
+      - INDEXER_USERNAME=admin
+      - INDEXER_PASSWORD=${WAZUH_INDEXER_PASSWORD}
+      - WAZUH_API_PASSWORD=${WAZUH_API_PASSWORD}
+    volumes:
+      - wazuh-logs:/var/ossec/logs
+      - wazuh-data:/var/ossec/data
+      - ./configs/wazuh/generated/ossec.conf:/var/ossec/etc/ossec.conf:ro
+      - ./configs/wazuh/rules/local_rules.xml:/var/ossec/etc/rules/local_rules.xml
+      - ./wazuh-certificates/root-ca.pem:/etc/filebeat/certs/root-ca.pem:ro
+      #- ./configs/wazuh/manager/filebeat.yml:/etc/filebeat/filebeat.yml:ro # new [Intern Filebeat]
+      #- ./wazuh-certificates/wazuh-manager.pem:/etc/filebeat/certs/wazuh-manager.pem:ro # opcional
+      #- ./wazuh-certificates/wazuh-manager-key.pem:/etc/filebeat/certs/wazuh-manager-key.pem:ro # opcional
+    ports:
+      - "1514:1514"
+      - "55000:55000"
+    networks:
+      sentinel-network:
+        # --- IP ESTÁTICA ASIGNADA ---
+        ipv4_address: 172.20.0.21
+    depends_on:
+      # --- CONDITION CHANGED BACK TO DEFAULT ---
+      wazuh-indexer:
+        condition: service_started
+      wazuh-bootstrap:
+        condition: service_started
+      wazuh-ossec-templater:
+        condition: service_completed_successfully
+
+  wazuh-dashboard:
+    image: wazuh/wazuh-dashboard:4.12.0
+    container_name: sentinel-wazuh-dashboard
+    hostname: wazuh-dashboard
+    environment:
+      - INDEXER_URL=https://172.20.0.20:9200
+      #- INDEXER_URL=https://wazuh-indexer:9200
+      - WAZUH_API_URL=https://172.20.0.21
+      #- WAZUH_API_URL=https://wazuh-manager
+      - OPENSEARCH_SSL_CERTIFICATEAUTHORITIES=/usr/share/opensearch-dashboards/certs/root-ca.pem
+      - OPENSEARCH_SSL_VERIFICATIONMODE=full
+      - INDEXER_USERNAME=admin
+      - INDEXER_PASSWORD=${WAZUH_INDEXER_PASSWORD}
+      - WAZUH_API_PASSWORD=${WAZUH_API_PASSWORD}
+    volumes:
+      - ./wazuh-certificates/wazuh-dashboard.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard.pem
+      - ./wazuh-certificates/wazuh-dashboard-key.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard-key.pem
+      - ./wazuh-certificates/root-ca.pem:/usr/share/opensearch-dashboards/certs/root-ca.pem:ro
+      #- ./wazuh-indexer/certs/root-ca.pem:/usr/share/opensearch-dashboards/certs/root-ca.pem:ro #file path no existe
+
+      - ./configs/wazuh/dashboard/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml
+      - ./configs/wazuh/dashboard/wazuh.yml:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml
+    ports:
+      - "8443:5601"
+    networks:
+      sentinel-network:
+        # --- IP ESTÁTICA ASIGNADA ---
+        ipv4_address: 172.20.0.22
+    depends_on:
+      - wazuh-indexer
+
+  # --- EXTERNAL FILEBEAT ---
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:9.1.2
+    container_name: sentinel-filebeat
+    user: root
+    command: ["--strict.perms=false", "-e"]
+    volumes:
+      - ./configs/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./wazuh-certificates/root-ca.pem:/etc/filebeat/certs/root-ca.pem:ro # new
+      - wazuh-logs:/var/ossec/logs:ro   # Same Volume that Wazuh Manager uses
+      - ./configs/elk/filebeat/data:/usr/share/filebeat/data
+    depends_on:
+      logstash:
+        condition: service_started
+      wazuh-manager:
+        condition: service_started
+    networks:
+      - sentinel-network

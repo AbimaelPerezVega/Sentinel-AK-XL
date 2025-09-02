@@ -1,0 +1,31 @@
+#./configs/wazuh/indexer/wazuh.indexer.yml
+network.host: 0.0.0.0
+node.name: wazuh-indexer
+cluster.initial_master_nodes:
+  - wazuh-indexer
+cluster.name: "wazuh-cluster"
+
+# --- SSL/TLS SECURITY CONFIGURATION ---
+# Rutas relativas a la ubicación del archivo opensearch.yml
+plugins.security.ssl.transport.pemcert_filepath: certs/wazuh-indexer.pem
+plugins.security.ssl.transport.pemkey_filepath: certs/wazuh-indexer-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: certs/root-ca.pem
+
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: certs/wazuh-indexer.pem
+plugins.security.ssl.http.pemkey_filepath: certs/wazuh-indexer-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: certs/root-ca.pem
+
+# --- AUTHENTICATION & AUTHORIZATION ---
+plugins.security.authcz.admin_dn:
+  - "CN=admin,OU=Wazuh,O=Wazuh,L=California,C=US"
+
+plugins.security.nodes_dn:
+  - "CN=wazuh-indexer,OU=Wazuh,O=Wazuh,L=California,C=US"
+
+# --- SECURITY INDEX INITIALIZATION ---
+plugins.security.allow_default_init_securityindex: true
+
+plugins.security.restapi.roles_enabled:
+  - "all_access"
+  - "security_rest_api_access"

@@ -1,0 +1,59 @@
+
+<group name="local,sysmon,network,">
+
+  <rule id="100001" level="3">
+    <field name="win.system.providerName">^Microsoft-Windows-Sysmon$</field>
+    <description>Grouping for Sysmon Event Rules.</description>
+    <group>sysmon_event,</group>
+  </rule>
+
+  <rule id="100002" level="5">
+    <if_sid>100001</if_sid>
+    <field name="win.system.eventID">^1$</field>
+    <description>Sysmon - Event 1: Process $(win.eventdata.image) created.</description>
+    <group>sysmon_process_creation,</group>
+  </rule>
+
+  <rule id="100003" level="6">
+    <if_sid>100001</if_sid>
+    <field name="win.system.eventID">^3$</field>
+    <description>Sysmon - Event 3: Network connection detected from $(win.eventdata.image).</description>
+    <group>sysmon_network_connection,</group>
+  </rule>
+
+  <rule id="100004" level="8">
+    <if_sid>100001</if_sid>
+    <field name="win.system.eventID">^11$</field>
+    <description>Sysmon - Event 11: File $(win.eventdata.targetFilename) created by $(win.eventdata.image).</description>
+    <group>sysmon_file_create,</group>
+  </rule>
+
+  <rule id="100005" level="10">
+    <if_sid>100001</if_sid>
+    <field name="win.system.eventID">^13$</field>
+    <description>Sysmon - Event 13: Registry modification detected in $(win.eventdata.targetObject).</description>
+    <group>sysmon_registry_event,</group>
+  </rule>
+
+  <rule id="100010" level="0">
+    <program_name>example</program_name>
+    <description>User logged</description>
+  </rule>
+
+  <rule id="4101" level="5" overwrite="yes">
+    <if_sid>4100</if_sid>
+    <match>IPTABLES-DROP:</match>
+
+    <description>IPTABLES DROP: $(srcip) -> $(dstip) dpt=$(dstport) proto=$(protocol)</description>
+    <group>firewall_drop,pci_dss_1.4,gpg13_4.12,gdpr_IV_35.7.d,hipaa_164.312.a.1,nist_800_53_SC.7,tsc_CC6.7,tsc_CC6.8,</group>
+  </rule>
+
+  <rule id="100111" level="10" frequency="10" timeframe="60" ignore="60">
+    <if_matched_sid>4101</if_matched_sid>
+    <same_source_ip/>
+    <description>Possible port scan from $(srcip)</description>
+    <group>local,network,portscan,iptables,</group>
+    <mitre><id>T1046</id></mitre>
+  </rule>
+
+</group>

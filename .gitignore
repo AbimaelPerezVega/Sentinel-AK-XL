@@ -1,0 +1,49 @@
+# === Secrets / Certs ===
+# Claves privadas (cualquier carpeta)
+*.key
+*-key.pem
+
+# Certs sensibles en rutas habituales
+wazuh-certificates/*.key
+wazuh-certificates/*-key.pem
+configs/wazuh/ssl_certs/*.key
+#
+configs/wazuh/ssl_certs/*.pem
+configs/wazuh/ssl_certs/*-key.pem
+
+# Logs
+*.log
+logs/
+setup.log
+
+# File too heavy for github - user needs to downloaded it and decompress.
+# This file is necessary for GeoIP feature
+configs/wazuh/geoip/GeoLite2-City.mmdb
+
+# Do not remove or comment this
+./configs/wazuh/generated/ossec.conf
+
+# Data directories
+data/
+.env.local
+.env
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
+*~
