@@ -17,6 +17,8 @@ configs/wazuh/geoip/GeoLite2-City.mmdb
 *-key.pem
 *-ca.pem
 
+wazuh-indexer/
+wazuh-certificates/
 wazuh-certificates/*
 wazuh-certificates/*.key
 wazuh-certificates/*-key.pem
