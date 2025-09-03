@@ -1,6 +1,8 @@
 If you problem with random networks using the desired ip:
 docker network prune
 
+To see fields:
+curl -s "http://localhost:9200/sentinel-logs-*/_field_caps?fields=*&include_unmapped=true&ignore_unavailable=true&pretty"
 
 
 Use this to start the docker compose of ELK stack

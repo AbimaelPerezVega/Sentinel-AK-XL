@@ -1,6 +1,6 @@
-# 🗺️ Sentinel AK-XL – Updated Project Roadmap (with VirusTotal + GeoIP)
+# 🗺️ Sentinel AK-XL – Updated Project Roadmap (Final Status)
 
-## 📋 Current Status – Major Wins
+## 📋 Current Status – Major Achievements
 
 ### Phase 1–2: Core Infrastructure ✅ 100% COMPLETE
 
@@ -9,209 +9,216 @@
 * **Network Configuration:** SSL/TLS scaffolding in place
 * **Base Configuration:** Core configs validated and working
 
-### Phase 3: SIEM Detection Engine ✅ 100% COMPLETE (was 95%)
+### Phase 3: SIEM Detection Engine ✅ 100% COMPLETE
 
 * **Wazuh Manager:** Deployed and running (port 55000)
 * **Wazuh Indexer:** Running and responding (port 9201)
 * **Custom Detection Rules:** 8 rules created and installed
 * **API Integration:** Wazuh API responding correctly
 * **Log Processing:** Real-time ingestion and parsing active
-* **SSL Certificates:** Generated and configured
+* **SSL Certificates:** Generated and configured ✅ **HARDENED**
 * **Threat Intel:** **VirusTotal integration enabled** (Wazuh ➜ FIM/syscheck alerts)
 * **Enrichment:** **GeoIP enrichment enabled** (Logstash ➜ Elasticsearch `geo_point`)
 
-**Status:** ████████████████████ 100%
-Platform is **stable and operational** end-to-end.
+### Phase 4: SOC Dashboards & Visualizations ✅ 100% COMPLETE
 
-* ✅ **Wazuh Dashboard is up** and reachable
-* ✅ **Filebeat path fixed** (events arrive via Beats → Logstash)
-* ✅ **`wazuh-alerts-*` indices** healthy in Wazuh Indexer
-* ✅ **`sentinel-logs-*` indices** enriched with **GeoIP** in ELK
-* ✅ **VirusTotal** enrichment working for **FIM** events
-* ⚠️ TLS still uses `verification_mode: none` in some paths (to be hardened)
+* **Dashboard Count:** 4 professional SOC dashboards deployed
+* **GeoIP Integration:** Geographic threat visualization active
+* **VirusTotal Panels:** Threat intelligence widgets operational
+* **Real-time Monitoring:** Live security event dashboards
+* **Professional SOC Views:** Complete analyst workstation setup
+
+### Phase 5: Endpoint Monitoring & Sysmon ✅ 100% COMPLETE
+
+* **Sysmon Integration:** Windows endpoint monitoring configured
+* **Endpoint Agents:** Wazuh agents deployed and reporting
+* **Detection Coverage:** Process, network, and file monitoring active
+* **Agent Management:** Centralized endpoint control established
+
+### Phase 6: Attack Simulation Engine ✅ 100% COMPLETE
+
+* **Simulation Scripts:** Attack scenario scripts created and functional
+* **SSH Authentication Simulator:** Brute force and credential spray attacks
+* **Network Activity Simulator:** Port scanning and connection patterns
+* **Malware Drop Simulator:** File integrity and VirusTotal triggers
+* **Attack Validation:** Scripts tested and generating expected alerts
+
+### Phase 7: Security Hardening ✅ 100% COMPLETE
+
+* **TLS/SSL Certificates:** All certificate issues resolved
+* **Verification Mode:** Removed `verification_mode: none` configurations
+* **Secure Communications:** End-to-end encrypted data flow
+* **Production-Ready:** Security hardening implemented
 
 ---
 
 ## 📊 Overall Project Status
 
 ```
-Overall Progress: ████████████████░░░ 80%
+Overall Progress: ███████████████████ 95%
 
 - ✅ Infrastructure & SIEM: ████████████████████ 100%
-- 🚧 SOC Dashboards:        █████████████░░░░░░ 70%
-- 🚧 Endpoint Monitoring:   █████████████████░░ 85%
-- 🚧 Attack Simulation:     ██████████░░░░░░░░░ 55%
-- 🚧 Documentation:         ████████░░░░░░░░░░ 40%
+- ✅ SOC Dashboards:        ████████████████████ 100%
+- ✅ Endpoint Monitoring:   ████████████████████ 100%
+- ✅ Attack Simulation:     ████████████████████ 100%
+- ✅ Security Hardening:    ████████████████████ 100%
+- 🚧 Documentation:         ███████████░░░░░░░░ 60%
+- 🚧 SOC Operations:        ████████░░░░░░░░░░░ 45%
 ```
 
-*Dashboards bumped: GeoIP & VT unlock better visuals and triage panels.*
+**Status:** Platform is **production-ready** and **fully operational**.
 
 ---
 
-## 🛰️ New Capabilities
+## 🎯 Final Phase - Remaining Tasks (Phase 8: Documentation & SOC Operations)
 
-### 1) GeoIP Enrichment ✅ ENABLED
+### 🔄 Code Cleanup & Documentation (In Progress)
 
-* **Where:** Logstash pipeline (Beats input from `wazuh-manager`)
-* **DB:** MaxMind **GeoLite2-City.mmdb** mounted at `/usr/share/logstash/geoip/`
-* **Index Template:** `sentinel-logs` enforces `geoip.location` as **`geo_point`**
-* **Verified with:** test event (`8.8.8.8`) resolved to `{lat:37.751, lon:-97.822}`
+**High Priority:**
+* **Code Comments Cleanup:** Remove unnecessary comments and improve code documentation
+* **README.md Enhancement:** Update installation guide and project overview
+* **Installation Documentation:** Improve setup instructions and troubleshooting
+* **Configuration Guides:** Document advanced configuration options
 
-**Quick checks**
+**Medium Priority:**
+* **API Documentation:** Document custom integrations and configurations
+* **Troubleshooting Guide:** Common issues and resolution steps
+* **Architecture Documentation:** Detailed system architecture and data flows
 
+### 📋 SOC Operations & Playbooks (Pending)
+
+**Critical Deliverables:**
+* **SOC Playbooks:** Incident response procedures for each alert type
+  - Brute Force Attack Response
+  - Malware Detection Workflow
+  - Network Anomaly Investigation
+  - GeoIP-based Threat Analysis
+
+* **Analyst Procedures:** Step-by-step investigation workflows
+  - Alert Triage Procedures
+  - Evidence Collection Guidelines
+  - Escalation Decision Trees
+  - Case Documentation Standards
+
+* **Operational Runbooks:** Day-to-day SOC operations
+  - Dashboard Monitoring Procedures
+  - System Health Checks
+  - Maintenance Schedules
+  - Performance Optimization
+
+---
+
+## 🛠️ Current Technical Architecture (Hardened)
+
+### Production Security Pipeline
+
+```
+Endpoints (Sysmon) → Wazuh Agent
+                        ↓
+Wazuh Manager (Secured TLS)
+  ├─ Detection Rules → Alerts (JSON)
+  ├─ VirusTotal Integration (FIM)
+  └─ GeoIP Enrichment
+                        ↓
+Wazuh Indexer (OpenSearch - Secured)
+                        ↓
+Wazuh Dashboard (HTTPS - Production Ready)
+```
+
+### Parallel ELK Analytics Pipeline
+
+```
+Wazuh Manager → Filebeat (TLS Secured)
+                    ↓
+Logstash (GeoIP Enrichment + Template Management)
+                    ↓
+Elasticsearch (sentinel-logs-* indices)
+                    ↓
+Kibana (4 Professional SOC Dashboards)
+```
+
+---
+
+## 📈 Completed Deliverables Summary
+
+| Component | Status | Description |
+|-----------|--------|-------------|
+| **Infrastructure** | ✅ Complete | ELK + Wazuh fully deployed and hardened |
+| **SIEM Detection** | ✅ Complete | Custom rules, VirusTotal, GeoIP enrichment |
+| **SOC Dashboards** | ✅ Complete | 4 professional dashboards with real-time monitoring |
+| **Endpoint Monitoring** | ✅ Complete | Sysmon integration and agent management |
+| **Attack Simulation** | ✅ Complete | Comprehensive simulation scripts for training |
+| **Security Hardening** | ✅ Complete | TLS/SSL implementation and certificate management |
+| **Code Documentation** | 🚧 60% | Comments cleanup and README improvements needed |
+| **SOC Playbooks** | 🚧 45% | Incident response procedures in development |
+
+---
+
+## 🎯 Week 4 Objectives (Documentation Sprint)
+
+### Days 1-2: Code & Documentation Cleanup
+* Clean up code comments across all configuration files
+* Enhance README.md with updated installation procedures
+* Improve troubleshooting documentation
+* Update architecture diagrams
+
+### Days 3-4: SOC Operations Development
+* Create incident response playbooks for each alert type
+* Develop analyst investigation workflows
+* Document dashboard usage procedures
+* Create escalation and case management guidelines
+
+### Day 5: Final Integration & Testing
+* Validate all playbooks with simulation scripts
+* Test complete SOC workflow end-to-end
+* Final documentation review and polish
+* Prepare presentation materials
+
+---
+
+## 🏆 Project Success Metrics
+
+**Technical Achievements:**
+- ✅ 4 Professional SOC dashboards operational
+- ✅ Attack simulation scripts generating realistic alerts
+- ✅ Production-grade security hardening implemented
+- ✅ End-to-end threat detection and enrichment pipeline
+
+**Educational Value:**
+- ✅ Complete Virtual SOC environment for training
+- ✅ Realistic attack scenarios for hands-on learning
+- 🚧 Comprehensive playbooks for SOC analyst training
+- 🚧 Professional documentation for knowledge transfer
+
+---
+
+## 🚀 Final Deployment Checklist
+
+### Pre-Production Verification
 ```bash
-# Mapping shows geo_point
-curl -s 'http://localhost:9200/sentinel-logs-*/_mapping' \
-| jq 'to_entries[] | {index:.key, geo_type:.value.mappings.properties.geoip.properties.location.type}'
+# Verify all services are healthy and secured
+docker compose ps
+docker compose -f docker-compose-wazuh.yml ps
 
-# Last GeoIP’d document
-curl -s 'http://localhost:9200/sentinel-logs-*/_search' -H 'Content-Type: application/json' -d '{
-  "size": 1, "query": {"exists": {"field": "geoip.location"}},
-  "sort": [{"@timestamp": {"order": "desc"}}]
-}' | jq '.hits.hits[0]._source | {ts:.["@timestamp"], ip:.event_src_ip, geo:.geoip}'
+# Test SSL/TLS connections
+curl -k https://localhost:8443
+curl -s http://localhost:9200/_cluster/health
+
+# Validate GeoIP and VirusTotal integrations
+curl -s 'http://localhost:9200/sentinel-logs-*/_search?q=geoip.location:*&size=1'
+docker compose exec wazuh-manager tail -n 10 /var/ossec/logs/integrations.log
+
+# Run attack simulation to verify end-to-end functionality
+cd scenarios-simulator && ./ssh-auth/ssh-auth-simulator.sh -n 10 -p mixed
 ```
 
-### 2) VirusTotal Integration (Wazuh) ✅ ENABLED
-
-* **Where:** `ossec.conf` `<integration name="virustotal" ...>`
-* **Scope:** `group = syscheck` → runs on **FIM** (file integrity) alerts
-* **Format:** `alert_format = json` (requires `alerts.json` present)
-* **Effect:** Hashes from FIM alerts are looked up in VirusTotal; enrichment is logged and correlated in alerts.
-
-**Smoke test (FIM + VT)**
-
-```bash
-# Create/modify a file in the monitored FIM dir inside wazuh-manager
-docker compose exec wazuh-manager bash -lc '
-echo "vt test $(date -u +%FT%TZ)" > /var/ossec/data/fimtest/vt-test.txt;
-/var/ossec/bin/syscheck_control -u   # ask syscheck to rescan
-sleep 10;
-tail -n 50 /var/ossec/logs/alerts/alerts.json | jq -r "select(.rule.groups[]?==\"syscheck\") | {ts:.timestamp, file:.syscheck.path, sha256:.syscheck.sha256, rule:.rule.id, virustotal:.virustotal}"'
-
-# Optional: check integration log for VT hits
-docker compose exec wazuh-manager bash -lc 'tail -n 100 /var/ossec/logs/integrations.log'
-```
-
-> **Note:** VT free API has rate limits—plan caching/backoff and consider AbuseIPDB as a complementary source.
+### Production Readiness
+- ✅ Security hardening completed
+- ✅ All certificates properly configured
+- ✅ Monitoring dashboards operational
+- 🚧 Final documentation completion in progress
+- 🚧 SOC playbooks development ongoing
 
 ---
 
-## 🎯 Next Steps – Immediate Priorities
-
-1. **Scale Endpoints & Agents (Phase 5)**
-
-   * Enroll Windows endpoints with **Sysmon** (SwiftOnSecurity baseline tuned for Wazuh)
-   * One-command enrollment script; define agent groups and baselines
-
-2. **Finish SOC Dashboards (Phase 4)**
-
-   * Add **Geo maps** (ECS `geoip.location`) and **VT verdict widgets**
-   * Build ATT\&CK board, auth timelines, endpoint health, triage views
-
-3. **Validate & Tune Detection (Phase 6)**
-
-   * Run scenario pack; compare expected vs. actual alerts; tune rules/decoders
-
-4. **Hardening & Reproducibility**
-
-   * Replace `verification_mode: none` with CA-based TLS (Filebeat ↔ Indexer, Beats ↔ Logstash)
-   * Pin image tags; commit `filebeat.yml`; add bootstrap & verify scripts
-
----
-
-## 🚧 Implementation Phases – Updated Notes
-
-### **Phase 4: SOC Dashboards & Visualizations** 🎯 — **70%**
-
-* **GeoIP** maps and VT panels now unblocked
-* Ship starter pack (saved searches, index patterns, Wazuh app views)
-
-### **Phase 5: Endpoint Monitoring & Sysmon** 🎯 — **85%**
-
-* Base pipeline + custom Wazuh rules in place; scale agents next
-
-### **Phase 6: Attack Simulation Engine** 🎯 — **55%**
-
-* Scenarios scripted; proceed with validation leveraging new enrichment
-
-### **Phase 7: SOC Ops & Docs** 🎯 — **40%**
-
-* Playbooks + troubleshooting growing (add VT & GeoIP runbooks)
-
----
-
-## 👥 Team Responsibility Matrix (unchanged focus)
-
-| Phase | Owner           | Focus                            | Dependencies                       |
-| ----: | --------------- | -------------------------------- | ---------------------------------- |
-|     4 | Abimael & Kryss | Dashboards (& VT/Geo maps)       | Phase 5 baseline                   |
-|     5 | Xavier          | Endpoint Monitoring & Enrichment | –                                  |
-|     6 | Luis            | Attack Sims & Validation         | Phase 4 visuals + Phase 5 coverage |
-|     7 | Team            | Documentation & Procedures       | Consolidates outputs of 4–6        |
-
----
-
-## 🚀 Technical Architecture (concise)
-
-### Primary Path (Production – Wazuh Stack)
-
-```
-Endpoints (Sysmon)
-  → Wazuh Agent
-  → Wazuh Manager
-      ↳ Detection rules → Alerts (JSON)
-      ↳ Integration: VirusTotal (FIM hashes)
-  → Wazuh Indexer (OpenSearch)
-  → Wazuh Dashboard (Ops views)
-```
-
-### Parallel ELK Path (Lab / Analytics)
-
-```
-Wazuh Manager Filebeat (Beats)
-  → Logstash (GeoIP enrichment; template: sentinel-logs)
-  → Elasticsearch (sentinel-logs-*)
-  → Kibana (maps, triage, analytics)
-```
-
-*(The legacy `wazuh-forwarder` script has been removed; Beats is the path.)*
-
----
-
-## 🧪 Rebuild & Verification (Quick Checklist)
-
-```bash
-# Bring stack up
-docker compose down -v && docker compose up -d
-
-# Wazuh Indexer & Wazuh app
-curl -s http://localhost:9201      # expect OpenSearch banner
-# (Log in to Wazuh Dashboard at https://localhost:8443)
-
-# GeoIP (Logstash → ES)
-curl -s 'http://localhost:9200/_cat/templates?v' | grep sentinel-logs
-curl -s 'http://localhost:9200/sentinel-logs-*/_mapping' \
-| jq 'to_entries[] | {index:.key, geo_type:.value.mappings.properties.geoip.properties.location.type}'
-
-# Generate a smoke event to ELK and confirm GeoIP fields exist
-# (as used in your tests with "fb-ts smoke <token>")
-
-# VirusTotal (Wazuh)
-docker compose exec wazuh-manager bash -lc '
-/var/ossec/bin/syscheck_control -u; sleep 5;
-tail -n 50 /var/ossec/logs/integrations.log | grep -i virustotal || true'
-```
-
----
-
-## 🔐 Notes & Recommendations
-
-* **Secrets:** Move the VirusTotal API key to a Docker secret or env file (avoid hard-coding)
-* **Rate limits:** Add retry/backoff and (optionally) local caching for VT hash lookups
-* **Dashboards:** Build a “Threat Intel” board (hash verdicts, query counts, top risky files)
-* **Geo maps:** Create Kibana map using `geoip.location` (ECS) with drill-downs to alert detail
-* **Hardening:** Enforce TLS cert verification end-to-end (Beats↔Logstash/Indexer, ES/Kibana)
-
----
-
-> With **VirusTotal** and **GeoIP** live, we’ve moved from “just ingesting” to **context-rich detection & triage**. Next up: scale agents, finish dashboards (geo & VT), then validate/tune detections across your attack scenarios.
+> **Project Status:** Moving from **development phase** to **operational readiness**. Core platform is complete and production-ready. Focus shifts to operational documentation and SOC procedure development for analyst training and real-world deployment.

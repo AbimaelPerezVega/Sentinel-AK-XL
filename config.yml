@@ -1,3 +1,5 @@
+# command to generate certificates: bash wazuh-certs-tool.sh -A
+# config.yml
 nodes:
   indexer:
     - name: wazuh-indexer
