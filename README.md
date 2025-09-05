@@ -63,9 +63,9 @@ Sentinel AK-XL is a production-grade Virtual SOC platform designed to provide ha
 
 This project was collaboratively developed by cybersecurity specialists:
 
-- **Abimael Pérez** - Project Lead & SOC Architecture
-- **Xavier Cruz** - Infrastructure Engineering & Automation
-- **Luis Soto** - Attack Simulation & Security Testing
+- **Abimael Pérez** - Project Lead, SOC Dashboard Development & Operational Documentation
+- **Xavier Cruz** - SOC Architecture, Infrastructure Engineering & Deployment Automation
+- **Luis Soto** - Attack Simulation, Security Testing & Red Team Operations
 
 ## Architecture & Data Flow
 
