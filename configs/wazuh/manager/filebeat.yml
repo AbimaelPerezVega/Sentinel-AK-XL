@@ -1,7 +1,7 @@
 # ./configs/wazuh/manager/filebeat.yml
-# Intern Filebeat for wazuh-manager
+# Internal Filebeat for wazuh-manager
 
-#filebeat.inputs: []  # usamos module, no inputs sueltos
+#filebeat.inputs: []  # using module, not standalone inputs
 
 filebeat.modules:
   - module: wazuh
@@ -35,27 +35,28 @@ seccomp:
 
 
 
-# Con esto se cambio filebeat interno para que no envie directo a elacticsearch sino
-# a Logstach para evitar duplicados con filebeat externo y el tag _type deprecado
-# ojo esto configuración lo único que logró fue dar problemas
+# Attempted change: Internal Filebeat configured to send data to Logstash
+# instead of Elasticsearch, to avoid duplicates with external Filebeat
+# and to bypass deprecated _type field. 
+# Note: This configuration caused issues and was reverted.
 
 #filebeat.modules:
 #  - module: wazuh
 #    alerts:
-#      enabled: false # desactivated to evade duplicates, we are using an external filebeat
+#      enabled: false  # disabled to prevent duplicates, external Filebeat in use
 #    archives:
 #      enabled: false
-
+#
 #setup.template.enabled: true
 #setup.template.overwrite: true
 #setup.ilm.enabled: false
-
-#  Cambia a Logstash (NO Elasticsearch directo)
+#
+#  Switch output to Logstash (NOT direct Elasticsearch)
 #output.logstash:
 #  hosts: ["logstash:5044"]
-
+#
 #logging.metrics.enabled: false
-
+#
 #seccomp:
 #  default_action: allow
 #  syscalls:

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Command to generate certificates: bash wazuh-certs-tool.sh -A
+#
 # Wazuh installer
 # Copyright (C) 2015, Wazuh Inc.
 #

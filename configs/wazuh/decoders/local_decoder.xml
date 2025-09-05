@@ -1,3 +1,4 @@
+<!-- [configs/wazuh/local_decoders.xml] This file is not used -->
 <decoder name="iptables-custom-drop">
   <parent>kernel</parent>
   <prematch>^\sIPTABLES-DROP:</prematch>

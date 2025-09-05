@@ -1,0 +1,2135 @@
+{
+  "indices" : [
+    "sentinel-logs-2025.09.02"
+  ],
+  "fields" : {
+    "data.virustotal.found" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "agent.version.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.scan_date.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_ignored_source" : {
+      "_ignored_source" : {
+        "type" : "_ignored_source",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "rule.id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "host.name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.nist_800_53" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "error.message.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.region_name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.gdpr.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "service.type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.mitre.id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.srcip.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.protocol" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.region_code.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_version" : {
+      "_version" : {
+        "type" : "_version",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : true
+      }
+    },
+    "user_agent.original" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "predecoder" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "geoip.location.lat" : {
+      "float" : {
+        "type" : "float",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.mitre.technique" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "predecoder.program_name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http.request.mime_type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.size_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "predecoder.hostname" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "agent.id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "fileset.name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.gname_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "source_type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.srcip" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "tags" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "input" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "fileset.name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "url.path" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "decoder.name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.md5_before" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "predecoder.hostname.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.sha1_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http.version.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.frequency" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.srcuser" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.source.md5" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "service.type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.postal_code.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.hipaa" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "tags.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "host.ip" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "agent.type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.gpg13.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "manager.name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "event_src_ip.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.country_name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.pci_dss" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.uname_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "decoder.parent.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "manager" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "agent.name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source.md5.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source.sha1.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "url.domain.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.protocol.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "fileset" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.sha256_before.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.dstip" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.location.lon" : {
+      "float" : {
+        "type" : "float",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_field_names" : {
+      "_field_names" : {
+        "type" : "_field_names",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "log.file.inode" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "error.message" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "log.file.path" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.md5_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.firedtimes" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "log.file.fingerprint" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.level" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.event" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.timezone" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.uname_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "agent" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "http.method.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.perm_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_ignored" : {
+      "_ignored" : {
+        "type" : "_ignored",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "ecs.version.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "host.ip.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "user_agent.original.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.total.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.malicious.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.longitude" : {
+      "float" : {
+        "type" : "float",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_routing" : {
+      "_routing" : {
+        "type" : "_routing",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.tsc" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "_doc_count" : {
+      "integer" : {
+        "type" : "integer",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "event.original" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "decoder.parent" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "@version.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.region_name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.description" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "log.offset" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "log.file" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.perm_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.dstuser" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "message.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.malicious" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "agent.version" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.groups" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "fields" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.source.alert_id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http.request.body.bytes" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.gname_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.pci_dss.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "data.integration.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.md5_before.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "full_log" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.dstport.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.dma_code" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.country_code3" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "event.module" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.source.sha1" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.country_code2" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "url.port" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "source_type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.srcuser.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.error.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source.file.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "url.path.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.gid_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.md5_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "message" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.description" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.positives" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "service" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "_@timestamp" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "event.original.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "location" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.mitre.id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.timezone.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.scan_date" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.sha1" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.sha1_before.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.description.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.total" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "event.dataset.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.country_code2.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.positives.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "predecoder.timestamp" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.sha256_before" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.hipaa.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.city_name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "rule.groups.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "agent.name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http.version" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "_inference_fields" : {
+      "_inference_fields" : {
+        "type" : "_inference_fields",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.sha1_before" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "input.type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.changed_attributes" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.path" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "agent.id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "fields.index_prefix" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.latitude" : {
+      "float" : {
+        "type" : "float",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_source" : {
+      "_source" : {
+        "type" : "_source",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "location.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.permalink.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "input.type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source.alert_id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "log" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "previous_output.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.region_code" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.inode_after" : {
+      "long" : {
+        "type" : "long",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "http.request.body" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.size_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.mitre.tactic.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.nist_800_53.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.ip" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "event" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "http.request.mime_type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "predecoder.program_name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.action.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "agent.type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "agent.ephemeral_id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "log.file.fingerprint.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.dstip.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "error.type.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.mitre" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "rule.mitre.tactic" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "manager.name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.mode.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.city_name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.ip.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "url" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "@timestamp" : {
+      "date" : {
+        "type" : "date",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_nested_path" : {
+      "_nested_path" : {
+        "type" : "_nested_path",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.srcport" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.changed_attributes.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.source.file" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.error" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "url.domain" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "agent.ephemeral_id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "decoder.name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.description.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "full_log.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "fields.index_prefix.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "_feature" : {
+      "_feature" : {
+        "type" : "_feature",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "geoip.country_name.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.integration" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.virustotal.sha1.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.found.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.virustotal.permalink" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "ecs" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "host" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "host.name" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.mode" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "previous_output" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.tsc.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "event_src_ip" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "decoder" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "_tier" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_seq_no" : {
+      "_seq_no" : {
+        "type" : "_seq_no",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "data.dstuser.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "error.type" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.continent_code.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "ecs.version" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.mitre.technique.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "event.module.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.uid_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_id" : {
+      "_id" : {
+        "type" : "_id",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.continent_code" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.gid_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.event.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_index" : {
+      "_index" : {
+        "type" : "_index",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "rule.gdpr" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "geoip.country_code3.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.mtime_after" : {
+      "date" : {
+        "type" : "date",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "error" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "log.file.inode.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.mtime_before" : {
+      "date" : {
+        "type" : "date",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_data_stream_timestamp" : {
+      "_data_stream_timestamp" : {
+        "type" : "_data_stream_timestamp",
+        "metadata_field" : true,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "geoip.location" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "log.file.device_id" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "@version" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "predecoder.timestamp.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "log.file.device_id.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.sha1_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "http.method" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "log.file.path.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "user_agent" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "rule.gpg13" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "http.request" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "geoip" : {
+      "object" : {
+        "type" : "object",
+        "metadata_field" : false,
+        "searchable" : false,
+        "aggregatable" : false
+      }
+    },
+    "data.srcport.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "_index_mode" : {
+      "_index_mode" : {
+        "type" : "_index_mode",
+        "metadata_field" : true,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "http.request.body.bytes.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "geoip.postal_code" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "rule.mail" : {
+      "boolean" : {
+        "type" : "boolean",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.sha256_after.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "syscheck.uid_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.action" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "data.dstport" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.path.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    },
+    "event.dataset" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "syscheck.sha256_after" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    },
+    "_@timestamp.keyword" : {
+      "keyword" : {
+        "type" : "keyword",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : true
+      }
+    }
+  }
+}
