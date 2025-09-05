@@ -6,25 +6,28 @@
 # Compatible with Wazuh agent monitoring and ELK stack processing
 # ==============================================================================
 
-#===============================================================================
-# Important commands for the first time running it
+# === First-time setup commands (inside container) ===
+# Copy script to Wazuh Manager:
+#   docker cp simulator-scripts/ssh-auth-simulator.sh sentinel-wazuh-manager:/usr/local/bin/ssh-auth-simulator
 #
-# docker cp simulator-scripts/ssh-auth-simulator.sh sentinel-wazuh-manager:/usr/local/bin/ssh-auth-simulator
-# docker exec -it sentinel-wazuh-manager chmod +x /usr/local/bin/ssh-auth-simulator
-# docker exec -it sentinel-wazuh-manager bash -lc \
-# 'mkdir -p /var/ossec/logs/test && \
-#  ssh-auth-simulator -l /var/ossec/logs/test/sshd.log -n 50 -v'
-#===============================================================================
+# Make it executable:
+#   docker exec -it sentinel-wazuh-manager chmod +x /usr/local/bin/ssh-auth-simulator
+#
+# Run simulation:
+#   docker exec -it sentinel-wazuh-manager bash -lc \
+#     'mkdir -p /var/ossec/logs/test && \
+#      ssh-auth-simulator -l /var/ossec/logs/test/sshd.log -n 50 -v'
+
 set -euo pipefail
 
-# Configuration
+# === Configuration ===
 SCRIPT_NAME="ssh-auth-simulator"
 LOG_FILE="/var/log/auth.log"
 SIMULATION_LOG="/var/log/ssh-auth-simulation.log"
 PID_FILE="/tmp/ssh-auth-simulator.pid"
 WAZUH_AGENT_LOG="/var/ossec/logs/active-responses.log"
 
-# Colors for output
+# === Colors ===
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -32,15 +35,15 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 WHITE='\033[1;37m'
-NC='\033[0m' # No Color
+NC='\033[0m' # Reset / no color
 
-# Logging functions
+# === Logging helpers ===
 log_info() { echo -e "${BLUE}[INFO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 log_success() { echo -e "${GREEN}[SUCCESS]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 log_warning() { echo -e "${YELLOW}[WARNING]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 
-# Global arrays for realistic simulation data
+# === Global arrays for realistic simulation data ===
 declare -a SOURCE_IPS=(
     # Suspicious IPs from various countries for GeoIP testing
     "103.124.106.4"      # China - known for brute force

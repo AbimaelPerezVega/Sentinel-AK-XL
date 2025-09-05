@@ -485,8 +485,10 @@ curl -X DELETE "http://localhost:9200/sentinel-logs-2024.08.*"
 
 # Configuration backup
 tar -czf config-backup-$(date +%Y%m%d).tar.gz configs/
-
-# Volume cleanup (⚠️ Data loss)
+```
+> [!WARNING]  
+> Volume cleanup (Data loss)
+```bash
 docker compose down -v
 docker system prune -f
 ```
@@ -529,7 +531,7 @@ sudo systemctl stop elasticsearch kibana
 **Solution**:
 ```bash
 # Regenerate certificates
-./wazuh-certs-tool.sh
+bash wazuh-certs-tool.sh -A
 
 # Restart affected services
 docker compose -f docker-compose-wazuh.yml restart wazuh-indexer wazuh-manager

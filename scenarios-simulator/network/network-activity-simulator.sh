@@ -5,15 +5,18 @@
 # Patterns: single_flow, portscan_slow, portscan_fast, udp_probe, mixed
 # ==============================================================================
 
-# Command to pass the script to the container:
+# === How to copy the script into the container ===
 # docker cp ./scenarios-simulator/network/network-activity-simulator.sh \
-#  sentinel-wazuh-manager:/usr/local/bin/network-activity-simulator.sh
+#   sentinel-wazuh-manager:/usr/local/bin/network-activity-simulator.sh
 
-# docker exec -it sentinel-wazuh-manager sh -lc 'chmod +x /usr/local/bin/network-activity-simulator.sh && /usr/local/bin/network-activity-simulator.sh -n 1 -p single_flow -d 0-0 -v'
+# === How to run inside the container ===
+# docker exec -it sentinel-wazuh-manager sh -lc \
+#   'chmod +x /usr/local/bin/network-activity-simulator.sh && \
+#    /usr/local/bin/network-activity-simulator.sh -n 1 -p single_flow -d 0-0 -v'
 
-# Example
+# === Example ===
 # docker exec -it sentinel-wazuh-manager /usr/local/bin/network-activity-simulator.sh \
-#  -n 1 -p portscan_fast -d 0-0 -v
+#   -n 1 -p portscan_fast -d 0-0 -v
 
 set -euo pipefail
 
@@ -33,9 +36,10 @@ DELAY_MIN=1
 DELAY_MAX=5
 PATTERN="mixed"
 
-# IPs “externos” (para GeoIP)
+# External IPs (used for GeoIP testing)
 SOURCE_IPS=(103.124.106.4 185.220.101.45 92.63.197.153 167.99.164.201 159.65.153.147 46.101.230.157 198.211.99.118 161.35.70.249 178.62.193.217 142.93.222.179 95.217.134.208 51.15.228.88 64.227.123.199)
-# Puertos de interés
+
+# Common ports of interest
 COMMON_TCP_PORTS=(22 80 443 3306 5432 9200 5601 3389 139 445 21 25 110 8080)
 COMMON_UDP_PORTS=(53 123 161 500 67 68)
 
@@ -50,12 +54,13 @@ emit_line(){
   proc="kernel:"
 
   src="$1"; dst="$2"; proto="$3"; spt="$4"; dpt="$5"; action="$6"; extra="$7"
-  # Línea estilo iptables/UFW
+  # Log line formatted like iptables/UFW
   local line="$ts $host $proc $action IN=eth0 OUT= MAC=de:ad:be:ef:00:01 SRC=$src DST=$dst LEN=$(rand 60 120) TOS=0x00 PREC=0x00 TTL=$(rand 32 64) ID=$(rand 10000 65000) DF PROTO=$proto SPT=$spt DPT=$dpt $extra"
   echo "$line" >> "$LOG_FILE"
   [ "$VERBOSE" = true ] && echo "$line"
 }
 
+# === Attack patterns ===
 single_flow(){
   local src dst proto spt dpt
   src=$(pick SOURCE_IPS); dst="172.20.0.$(rand 10 30)"
@@ -88,6 +93,7 @@ portscan_slow(){
   done
 }
 
+# === Execution control ===
 run_once(){
   case "$PATTERN" in
     single_flow) single_flow ;;
@@ -120,7 +126,7 @@ Examples:
 EOF
 }
 
-# Parse args
+# === Argument parsing ===
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n|--num-events) MAX_EVENTS="$2"; shift 2 ;;
@@ -136,7 +142,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Pre-checks
+# === Pre-checks ===
 touch "$SIM_LOG" || true
 mkdir -p "$(dirname "$LOG_FILE")"
 : > "$LOG_FILE" || true
@@ -144,6 +150,7 @@ mkdir -p "$(dirname "$LOG_FILE")"
 info "Log destino: $LOG_FILE"
 info "Patrón: $PATTERN | Eventos: $MAX_EVENTS | Delay: ${DELAY_MIN}-${DELAY_MAX}s | Continuous: $CONTINUOUS"
 
+# === Main execution ===
 if $CONTINUOUS; then
   i=0
   while true; do
