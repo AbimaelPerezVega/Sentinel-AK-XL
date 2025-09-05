@@ -9,7 +9,7 @@ setup.log
 configs/wazuh/geoip/GeoLite2-City.mmdb
 
 # Do not remove or comment this line
-./configs/wazuh/generated/ossec.conf
+configs/wazuh/generated/ossec.conf
 
 # === Certs ===
 *.key

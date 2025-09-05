@@ -4,7 +4,7 @@ server.port: 5601
 opensearch.hosts: https://172.20.0.20:9200
 #opensearch.hosts: https://wazuh-indexer:9200
 opensearch.ssl.certificateAuthorities: ["/usr/share/opensearch-dashboards/certs/root-ca.pem"] #tumbar si da problema
-opensearch.ssl.verificationMode: full # tumbar si da problema
+opensearch.ssl.verificationMode: full # turn off if give problem
 opensearch.username: kibanaserver
 opensearch.password: kibanaserver
 opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]

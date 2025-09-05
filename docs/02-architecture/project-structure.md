@@ -9,7 +9,7 @@ Sentinel AK-XL Virtual SOC
 │   ├── elk/                            # ELK Stack configurations
 │   │   ├── elasticsearch/              
 │   │   │   ├── elasticsearch.yml       # Elasticsearch cluster settings and memory optimization
-│   │   │   ├── jvm.options             # Java Virtual Machine tuning for performance
+│   │   │   ├── jvm.options             # Java Virtual Machine tuning for performance - [Empty - Not Used]
 │   │   │   └── templates/
 │   │   │       └── wazuh-template.json # Index template for Wazuh alert mapping
 │   │   ├── filebeat/
