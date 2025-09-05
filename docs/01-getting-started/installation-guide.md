@@ -29,7 +29,7 @@ df -h
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/Xavier308/Sentiniel-soc.git
+git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
 cd Sentiniel-soc
 ```
 
