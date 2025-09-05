@@ -8,11 +8,10 @@ setup.log
 # This file is necessary for GeoIP feature
 configs/wazuh/geoip/GeoLite2-City.mmdb
 
-# Do not remove or comment this
+# Do not remove or comment this line
 ./configs/wazuh/generated/ossec.conf
 
 # === Certs ===
-# Claves privadas (cualquier carpeta)
 *.key
 *-key.pem
 *-ca.pem

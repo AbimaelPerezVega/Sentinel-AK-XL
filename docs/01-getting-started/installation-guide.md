@@ -33,6 +33,7 @@ git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
 cd Sentiniel-soc
 ```
 
+
 ### 2. Environment Configuration
 
 #### Set Memory Limits

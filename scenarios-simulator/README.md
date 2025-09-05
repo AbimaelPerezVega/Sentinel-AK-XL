@@ -1,4 +1,4 @@
-# 🛡️ Sentinel SOC - Scenario Simulators
+# 🛡️ Sentinel AK-XL SOC - Scenario Simulators
 
 This directory contains a suite of **Bash scripts** designed to generate realistic security event logs for the **Sentinel SOC** environment. These simulators help test the entire data pipeline, from log generation and collection by **Wazuh** to analysis, alerting, and visualization in the SOC dashboards.
 

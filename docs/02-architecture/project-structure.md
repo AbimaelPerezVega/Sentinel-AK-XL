@@ -1,7 +1,7 @@
 # 🛡️ Sentinel AK-XL Project Structure Overview
 
 ```bash
-.
+Sentinel AK-XL Virtual SOC
 ├── README.md                           # Main project documentation and setup guide
 ├── VERSION                             # Current project version tracking
 ├── config.yml                          # Global project configuration settings
@@ -9,53 +9,53 @@
 │   ├── elk/                            # ELK Stack configurations
 │   │   ├── elasticsearch/              
 │   │   │   ├── elasticsearch.yml       # Elasticsearch cluster settings and memory optimization
-│   │   │   ├── jvm.options            # Java Virtual Machine tuning for performance
+│   │   │   ├── jvm.options             # Java Virtual Machine tuning for performance
 │   │   │   └── templates/
 │   │   │       └── wazuh-template.json # Index template for Wazuh alert mapping
 │   │   ├── filebeat/
-│   │   │   └── filebeat.yml           # Log shipping configuration (Wazuh → ELK)
+│   │   │   └── filebeat.yml            # Log shipping configuration (Wazuh → ELK)
 │   │   ├── kibana/
-│   │   │   ├── dashboards/            # SOC visualization configurations
-│   │   │   └── kibana.yml             # Kibana web interface settings
+│   │   │   ├── dashboards/             # SOC visualization configurations
+│   │   │   └── kibana.yml              # Kibana web interface settings
 │   │   └── logstash/
 │   │       ├── conf.d/
-│   │       │   └── main.conf          # Log processing pipeline with GeoIP enrichment
-│   │       ├── logstash.yml           # Logstash service configuration
-│   │       ├── pipelines.yml          # Pipeline orchestration settings
+│   │       │   └── main.conf           # Log processing pipeline with GeoIP enrichment
+│   │       ├── logstash.yml            # Logstash service configuration
+│   │       ├── pipelines.yml           # Pipeline orchestration settings
 │   │       └── templates/
 │   │           └── wazuh-template.json # Elasticsearch mapping for enriched logs
-│   └── wazuh/                         # SIEM detection engine configurations
-│       ├── agents/                    # Endpoint agent configurations
+│   └── wazuh/                          # SIEM detection engine configurations
+│       ├── agents/                     # Endpoint agent configurations
 │       ├── dashboard/
 │       │   ├── opensearch_dashboards.yml # Wazuh dashboard interface settings
-│       │   └── wazuh.yml              # Wazuh app configuration
+│       │   └── wazuh.yml               # Wazuh app configuration
 │       ├── decoders/
-│       │   └── local_decoder.xml      # Custom log parsing rules
+│       │   └── local_decoder.xml       # Custom log parsing rules
 │       ├── generated/
-│       │   └── ossec.conf             # Auto-generated Wazuh manager configuration
+│       │   └── ossec.conf              # Auto-generated Wazuh manager configuration
 │       ├── geoip/
-│       │   └── GeoLite2-City.mmdb     # Geographic IP location database
+│       │   └── GeoLite2-City.mmdb      # Geographic IP location database
 │       ├── indexer/
-│       │   ├── internal_users.yml     # Wazuh indexer user management
-│       │   └── wazuh.indexer.yml      # OpenSearch backend configuration
+│       │   ├── internal_users.yml      # Wazuh indexer user management
+│       │   └── wazuh.indexer.yml       # OpenSearch backend configuration
 │       ├── manager/
-│       │   ├── filebeat.yml           # Wazuh manager log shipping
-│       │   └── wazuh_manager.conf     # Core SIEM detection settings
-│       ├── ossec.conf.tpl             # Wazuh configuration template
+│       │   ├── filebeat.yml            # Wazuh manager log shipping
+│       │   └── wazuh_manager.conf      # Core SIEM detection settings
+│       ├── ossec.conf.tpl              # Wazuh configuration template
 │       ├── rules/
-│       │   └── local_rules.xml        # Custom detection rules for SOC scenarios
+│       │   └── local_rules.xml         # Custom detection rules for SOC scenarios
 │       └── ssl_certs/
-│           └── root-ca.pem            # SSL/TLS certificates for secure communication
-├── docker-compose.yml                 # ELK Stack container orchestration
-├── scenarios-simulator/               # Attack simulation toolkit for SOC training
-│   ├── README.md                      # Simulation scenarios documentation
+│           └── root-ca.pem             # SSL/TLS certificates for secure communication
+├── docker-compose.yml                  # ELK Stack container orchestration
+├── scenarios-simulator/                # Attack simulation toolkit for SOC training
+│   ├── README.md                       # Simulation scenarios documentation
 │   ├── malware-drop/
-│   │   └── malware-drop-simulator.sh  # File integrity monitoring and VirusTotal triggers
+│   │   └── malware-drop-simulator.sh   # File integrity monitoring and VirusTotal triggers
 │   ├── network/
 │   │   └── network-activity-simulator.sh # Port scanning and network anomaly generation
 │   └── ssh-auth/
-│       └── ssh-auth-simulator.sh      # SSH brute force and authentication attack simulation
-└── wazuh-certs-tool.sh               # SSL certificate generation utility for Wazuh stack
+│       └── ssh-auth-simulator.sh       # SSH brute force and authentication attack simulation
+└── wazuh-certs-tool.sh                 # SSL certificate generation utility for Wazuh stack
 ```
 ### Command
 ```

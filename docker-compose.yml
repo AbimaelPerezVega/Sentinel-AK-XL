@@ -1,5 +1,5 @@
 # ./docker-compose.yml
-# Sentinel SOC AK-XL - UNIFIED STACK
+# Sentinel AK-XL Virtual SOC [UNIFIED STACK]
 networks:
   sentinel-network:
     name: sentinel-network
@@ -94,7 +94,7 @@ services:
       retries: 5
       start_period: 120s
 
-  # --- BOOTSTRAP para sembrar rutas/archivos en volúmenes nuevos ---
+  # --- BOOTSTRAP for seeding paths/files into new volumes ---
   wazuh-bootstrap:
     image: alpine:3.19
     container_name: sentinel-wazuh-bootstrap
@@ -111,7 +111,7 @@ services:
       - sentinel-network
     restart: "no"
   
-  # Generate ./configs/wazuh/generated/ossec.conf and extract API-KEY value
+  # Generate ./configs/wazuh/generated/ossec.conf and extract API-KEY
   wazuh-ossec-templater:
     image: alpine:3.19
     container_name: sentinel-wazuh-ossec-templater
@@ -139,9 +139,9 @@ services:
       - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${WAZUH_INDEXER_PASSWORD}
     volumes:
-      # 🔒 data (recomiendo reactivarlo para persistir)
+      # data (recommended to enable for persistence)
       - wazuh-indexer-data:/var/lib/wazuh-indexer
-      # ✅ monta conf y certs en EL PATH EFECTIVO
+      # mount configs and certs in the effective path
       - ./configs/wazuh/indexer/wazuh.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml:ro
       - ./wazuh-certificates/root-ca.pem:/usr/share/wazuh-indexer/certs/root-ca.pem:ro
       - ./wazuh-certificates/wazuh-indexer.pem:/usr/share/wazuh-indexer/certs/wazuh-indexer.pem:ro
@@ -152,8 +152,8 @@ services:
       - "9201:9200"
     networks:
       sentinel-network:
-        ipv4_address: 172.20.0.20 # --- IP ESTÁTICA ASIGNADA ---
-    # --- HEALTHCHECK REMOVED TO ALLOW PROPER INITIALIZATION ---
+        ipv4_address: 172.20.0.20 # --- Assigned static IP ---
+    # --- Healthcheck removed to allow proper initialization ---
 
   wazuh-manager:
     image: wazuh/wazuh-manager:4.12.0
@@ -171,18 +171,18 @@ services:
       - ./configs/wazuh/generated/ossec.conf:/var/ossec/etc/ossec.conf:ro
       - ./configs/wazuh/rules/local_rules.xml:/var/ossec/etc/rules/local_rules.xml
       - ./wazuh-certificates/root-ca.pem:/etc/filebeat/certs/root-ca.pem:ro
-      #- ./configs/wazuh/manager/filebeat.yml:/etc/filebeat/filebeat.yml:ro # new [Intern Filebeat]
-      #- ./wazuh-certificates/wazuh-manager.pem:/etc/filebeat/certs/wazuh-manager.pem:ro # opcional
-      #- ./wazuh-certificates/wazuh-manager-key.pem:/etc/filebeat/certs/wazuh-manager-key.pem:ro # opcional
+      #- ./configs/wazuh/manager/filebeat.yml:/etc/filebeat/filebeat.yml:ro # internal Filebeat (optional)
+      #- ./wazuh-certificates/wazuh-manager.pem:/etc/filebeat/certs/wazuh-manager.pem:ro # optional
+      #- ./wazuh-certificates/wazuh-manager-key.pem:/etc/filebeat/certs/wazuh-manager-key.pem:ro # optional
     ports:
       - "1514:1514"
       - "55000:55000"
     networks:
       sentinel-network:
-        # --- IP ESTÁTICA ASIGNADA ---
+        # --- Assigned static IP ---
         ipv4_address: 172.20.0.21
     depends_on:
-      # --- CONDITION CHANGED BACK TO DEFAULT ---
+      # --- Condition set back to default ---
       wazuh-indexer:
         condition: service_started
       wazuh-bootstrap:
@@ -208,15 +208,13 @@ services:
       - ./wazuh-certificates/wazuh-dashboard.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard.pem
       - ./wazuh-certificates/wazuh-dashboard-key.pem:/usr/share/wazuh-dashboard/certs/wazuh-dashboard-key.pem
       - ./wazuh-certificates/root-ca.pem:/usr/share/opensearch-dashboards/certs/root-ca.pem:ro
-      #- ./wazuh-indexer/certs/root-ca.pem:/usr/share/opensearch-dashboards/certs/root-ca.pem:ro #file path no existe
-
       - ./configs/wazuh/dashboard/opensearch_dashboards.yml:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml
       - ./configs/wazuh/dashboard/wazuh.yml:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml
     ports:
       - "8443:5601"
     networks:
       sentinel-network:
-        # --- IP ESTÁTICA ASIGNADA ---
+        # --- Assigned static IP ---
         ipv4_address: 172.20.0.22
     depends_on:
       - wazuh-indexer
@@ -229,8 +227,8 @@ services:
     command: ["--strict.perms=false", "-e"]
     volumes:
       - ./configs/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - ./wazuh-certificates/root-ca.pem:/etc/filebeat/certs/root-ca.pem:ro # new
-      - wazuh-logs:/var/ossec/logs:ro   # Same Volume that Wazuh Manager uses
+      - ./wazuh-certificates/root-ca.pem:/etc/filebeat/certs/root-ca.pem:ro # required cert
+      - wazuh-logs:/var/ossec/logs:ro   # Same volume used by Wazuh Manager
       - ./configs/elk/filebeat/data:/usr/share/filebeat/data
     depends_on:
       logstash:
