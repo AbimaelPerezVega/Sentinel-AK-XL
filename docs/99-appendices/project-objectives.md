@@ -1,0 +1,34 @@
+# Project Objectives
+
+## Blue Team
+
+The **Blue Team** section trains you in defensive cybersecurity techniques and systems. Projects include building detection platforms, setting up analysis environments, and simulating attack scenarios to identify, respond to, and document real-world threats using industry-standard tools.
+
+---
+
+### B.1 Virtual SOC Setup
+
+This project involves building a fully functional **virtual Security Operations Center (SOC)**. You will install and configure tools like **ELK Stack, Wazuh, and Splunk** to collect and analyze security logs. Through simulated attacks (e.g., brute force, malware infection), the system will generate alerts that analysts can triage. You will document the SOC workflow, setup procedures, and create dashboards that reflect real-world analyst tasks.
+
+- **Objective:** Deploy a complete Security Operations Center (SOC) environment for centralized monitoring.  
+- **Tools:** ELK Stack, Wazuh, Sysmon  
+- **Team Size:** 4–5  
+- **Duration:** 1 month  
+
+---
+
+### Timeline
+
+- **Week 1:** Install ELK and Wazuh, deploy agents to endpoints.  
+- **Week 2:** Configure parsing, enrich logs with geo-IP/threat info.  
+- **Week 3:** Simulate incidents (port scan, malware execution) to trigger alerts.  
+- **Week 4:** Write analyst playbooks and document SOC operations.  
+
+---
+
+### Deliverables
+
+- Dashboards  
+- Alert workflows  
+- Simulation scripts  
+- SOC procedure guide  
