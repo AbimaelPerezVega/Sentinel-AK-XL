@@ -379,12 +379,6 @@ Incident Summary:
 - **Adjust time windows** based on normal user behavior
 - **Exclude service accounts** from standard rules
 
-## Related Playbooks
-- [Account Compromise Response](./account-compromise.md)
-- [Network Anomaly Investigation](./network-anomalies.md)
-- [Threat Intelligence Enrichment](../investigation-workflows/threat-hunting.md)
-- [Windows Event Analysis](./windows-events.md)
-
 ## References
 - [NIST SP 800-61: Computer Security Incident Handling Guide](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final)
 - [MITRE ATT&CK: Brute Force (T1110)](https://attack.mitre.org/techniques/T1110/)
