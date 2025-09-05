@@ -1,6 +1,6 @@
 # 🛡️ Sentinel AK-XL - Virtual Security Operations Center
 
-> **Note**
+> [!NOTE]
 > A comprehensive Virtual SOC environment engineered for cybersecurity education and professional training, featuring enterprise-grade SIEM capabilities, real-time threat detection, and advanced analytics.
 
 <p align="center">
@@ -42,7 +42,7 @@ Modern SOCs leverage SIEM (Security Information and Event Management) platforms,
 
 Sentinel AK-XL is a production-grade Virtual SOC platform designed to provide hands-on cybersecurity education and professional training. This project was developed as the capstone requirement for a specialized cybersecurity program, demonstrating advanced proficiency in security operations, threat detection, and incident response.
 
-> **Important**
+> [!IMPORTANT]
 > This platform integrates industry-standard tools including ELK Stack 9.1.2, Wazuh 4.12.0, and enterprise security frameworks to deliver authentic SOC analyst experience.
 
 ### Educational Objectives
@@ -170,7 +170,7 @@ The platform features four professional-grade dashboards designed for comprehens
 
 ## Quick Start
 
-> **Warning**
+> [!CAUTION]
 > Ensure your system meets the minimum requirements before proceeding with installation.
 
 ### Prerequisites
@@ -495,7 +495,7 @@ docker system prune -f
 
 ### Common Issues
 
-> **Tip**
+> [!TIP]
 > Most deployment issues relate to insufficient memory allocation or port conflicts.
 
 #### Memory-Related Issues
