@@ -30,49 +30,17 @@ err(){  echo -e "${RED}[ERR]${NC}  $(date '+%F %T') - $*" >&2; }
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# --- Banner (Cyberpunk / Metasploit-style) ---
-# 256-color neon violet (fallback to magenta)
-if command -v tput >/dev/null 2>&1 && [ "$(tput colors 2>/dev/null || echo 0)" -ge 256 ]; then
-  PURPLE=$'\e[38;5;141m'
-else
-  PURPLE=$'\e[35m'
-fi
-BOLD=$'\e[1m'; DIM=$'\e[2m'; RESET=$'\e[0m'
-
-banner () {
-  local title="${1:-SENTINEL AK-XL}"
-
-  # Header lines
-  printf '%b' "${PURPLE}${BOLD}=[ ${title} ]=\n"
-  printf '%b' "${PURPLE}+ -- --=[ virtual soc bootstrap\n"
-  printf '%b' "${PURPLE}+ -- --=[ wazuh • elk • virustotal\n"
-  printf '%b' "${PURPLE}+ -- --=[ mode: cyberpunk\n"
-  printf '%b' "${DIM}-----------------------------------------------------------${RESET}\n"
-
-  # ASCII art - Fixed version
-  printf '%b' "${PURPLE}${BOLD}"
-  cat <<'ART'
-   _____ ______ _   _________ _   ________   
-  / ___// ____/ | / /_  __/ / | / / ____/ /
-  \__ \/ __/ /  |/ / / / / /  |/ / __/ / /
- ___/ / /___/ /|  / / / / / /|  / /___/ /___
-/____/_____/_/ |_/ /_/ /_/_/ |_/_____/_____/
-                                                             
- ▄▄▄       ██ ▄█▀    ██▓  ██▓    
-▒████▄     ██▄█▒    ▓██▒ ▓██▒    
-▒██  ▀█▄  ▓███▄░    ▒██░ ▒██░    
-░██▄▄▄▄██ ▓██ █▄    ▒██░ ▒██░    
- ▓█   ▓██▒▒██▒ █▄   ░██████▒░██████▒
- ▒▒   ▓▒█░▒ ▒▒ ▓▒   ░ ▒░▓  ░░ ▒░▓  ░
-  ▒   ▒▒ ░░ ░▒ ▒░   ░ ░ ▒  ░░ ░ ▒  ░
-  ░   ▒   ░ ░░ ░      ░ ░     ░ ░   
-      ░  ░░  ░          ░  ░    ░  ░
-ART
-  printf '%b' "${RESET}"
-
-  printf '%b' "${DIM}-----------------------------------------------------------${RESET}\n"
-  printf '%b' "${PURPLE}${BOLD}=~[ bootstrap initializing ]~=${RESET}\n"
-}
+# --- Banner ---
+echo -e "\033[0;34m"
+echo "███████╗███████╗███╗   ██╗████████╗██╗███╗   ██╗███████╗██╗     "
+echo "██╔════╝██╔════╝████╗  ██║╚══██╔══╝██║████╗  ██║██╔════╝██║     "
+echo "███████╗█████╗  ██╔██╗ ██║   ██║   ██║██╔██╗ ██║█████╗  ██║     "
+echo "╚════██║██╔══╝  ██║╚██╗██║   ██║   ██║██║╚██╗██║██╔══╝  ██║     "
+echo "███████║███████╗██║ ╚████║   ██║   ██║██║ ╚████║███████╗███████╗"
+echo "╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝"
+echo -e "\033[0m"
+echo -e "\033[1;33m           Initial Project Setup\033[0m"
+echo ""
 
 # -----------------------------
 # Helpers
