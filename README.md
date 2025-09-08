@@ -533,6 +533,7 @@ docker system prune -f
 
 **Symptom**: Elasticsearch fails to start  
 **Solution**:
+
 ```bash
 # Check available memory
 free -h
@@ -543,6 +544,7 @@ free -h
 
 # Restart after changes
 docker compose restart elasticsearch
+```
 
 #### Port Conflicts
 
@@ -565,7 +567,7 @@ sudo systemctl stop elasticsearch kibana
 bash wazuh-certs-tool.sh -A
 
 # Restart affected services
-docker compose -f docker-compose-wazuh.yml restart wazuh-indexer wazuh-manager
+docker compose restart wazuh-indexer wazuh-manager
 ```
 
 ### Performance Optimization
@@ -594,7 +596,6 @@ Comprehensive documentation is available in the `docs/` directory:
 
 - **[Installation Guide](docs/01-getting-started/installation-guide.md)** - Detailed setup procedures
 - **[User Guide](docs/03-operations/soc-analyst-user-guide.md)** - SOC analyst operations
-- **[Admin Guide](docs/03-operations/system-administrator-guide.md)** - System administration
 - **[Analyst Playbooks](docs/04-analyst-playbooks/)** - Incident response procedures
 - **[Simulation Scenarios](docs/05-simulation-scenarios/)** - Training scenario guides
 
@@ -620,7 +621,7 @@ We welcome contributions to enhance the Sentinel AK-XL platform:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License 
 
 ---
 
