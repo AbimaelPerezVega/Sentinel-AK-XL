@@ -446,7 +446,7 @@ docker exec -it sentinel-wazuh-manager \
 
 Key configuration parameters for deployment customization:
 
-###.env
+### .env
 ```bash
 # Wazuh Authentication
 WAZUH_INDEXER_PASSWORD=SecurePassword123
@@ -454,8 +454,6 @@ WAZUH_API_PASSWORD=SecurePassword123
 # Threat Intelligence
 VIRUSTOTAL_API_KEY=your-virustotal-api-key
 ```
-```bash
-
 
 ### Configuration Files
 
