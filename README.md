@@ -188,7 +188,10 @@ The platform features four professional-grade dashboards designed for comprehens
 git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
 cd Sentinel-AK-XL
 
-# 2. Configure environment
+# 2. Certificates
+bash wazuh-certs-tool.sh -A
+
+# 3. Configure environment
 cat > .env << EOF
 # Wazuh Authentication
 WAZUH_INDEXER_PASSWORD=SecurePassword123
@@ -198,15 +201,14 @@ WAZUH_API_PASSWORD=SecurePassword123
 VIRUSTOTAL_API_KEY=your-virustotal-api-key
 EOF
 
-# 3. System optimization
+# 4. System optimization
 sudo sysctl -w vm.max_map_count=262144
 echo 'vm.max_map_count=262144' | sudo tee -a /etc/sysctl.conf
 
-# 4. Start all services
+# 5. Start all services
 docker compose up -d
-docker compose -f docker-compose-wazuh.yml up -d
 
-# 5. Verify deployment
+# 6. Verify deployment
 curl http://localhost:9200/_cluster/health
 curl http://localhost:55000
 ```
@@ -252,7 +254,18 @@ curl http://localhost:55000
 
 ### Detailed Setup Process
 
-#### 1. Environment Preparation
+### 1. System Verification
+```bash
+# Check Docker installation
+docker --version
+docker compose version
+
+# Verify system resources
+free -h
+df -h
+```
+
+#### 2. Environment Preparation
 ```bash
 # Install Docker (Ubuntu/Debian)
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -264,39 +277,52 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-#### 2. Memory Configuration
-```bash
-# For systems with 10-16GB RAM
-cat > .env << EOF
-ES_MEM=2g
-KIBANA_MEM=1g
-LOGSTASH_MEM=1g
-WAZUH_MEM=2g
-EOF
+### 3. Memory Configuration (Optional)
 
-# For systems with 16GB+ RAM
-cat > .env << EOF
-ES_MEM=4g
-KIBANA_MEM=1g
-LOGSTASH_MEM=2g
-WAZUH_MEM=3g
-EOF
+By default, the system is configured for 8-10GB RAM systems. If you have more RAM available, you can increase performance by manually editing the memory settings in `docker-compose.yml`:
+
+### For 16GB+ RAM Systems
+```bash
+# Edit these lines in docker-compose.yml:
+# Elasticsearch: Change "ES_JAVA_OPTS=-Xms1g -Xmx1g" to "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+# Logstash: Change "LS_JAVA_OPTS=-Xms512m -Xmx512m" to "LS_JAVA_OPTS=-Xms1g -Xmx1g"  
+# Wazuh-indexer: Change "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g" to "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+
+# Restart services after changes
+docker compose restart
 ```
 
-#### 3. Service Deployment
+> [!Note]
+> Default settings work fine for most users. Only modify if you have 16GB+ RAM and want better performance.
+
+#### 4. Service Deployment
+#### Option A: Quick Start (Recommended)
 ```bash
-# Start ELK Stack
+# Start all services with automatic setup
+docker compose up -d
+
+# Monitor startup process
+docker compose logs -f
+```
+
+#### Option B: Step-by-Step Start
+```bash
+# Start Elasticsearch first
 docker compose up -d elasticsearch
 sleep 30
-docker compose up -d kibana logstash
 
-# Start Wazuh Stack
-docker compose -f docker-compose-wazuh.yml up -d wazuh-indexer
-sleep 30
-docker compose -f docker-compose-wazuh.yml up -d wazuh-manager wazuh-dashboard
+# Start Kibana
+docker compose up -d kibana
+sleep 20
+
+# Start remaining ELK services
+docker compose up -d logstash
+
+# Start Wazuh stack
+docker compose up -d wazuh-manager wazuh-indexer wazuh-dashboard
 ```
 
-#### 4. Verification & Testing
+#### 5. Verification & Testing
 ```bash
 # Health checks
 curl -s http://localhost:9200/_cluster/health | jq '.status'
@@ -304,7 +330,11 @@ curl -s http://localhost:55000 | jq '.data'
 
 # Service status
 docker compose ps
-docker compose -f docker-compose-wazuh.yml ps
+```
+### 6. SSL Certificate Setup
+
+```bash
+bash wazuh-certs-tool.sh -A
 ```
 
 ## SOC Capabilities
@@ -416,34 +446,30 @@ docker exec -it sentinel-wazuh-manager \
 
 Key configuration parameters for deployment customization:
 
+.env
 ```bash
-# Security Configuration
-WAZUH_INDEXER_PASSWORD=your-secure-password
-WAZUH_API_PASSWORD=your-api-password
-VIRUSTOTAL_API_KEY=your-vt-api-key
-
-# Memory Allocation
-ES_MEM=2g
-KIBANA_MEM=1g
-LOGSTASH_MEM=1g
-WAZUH_MEM=2g
-
-# Network Configuration
-COMPOSE_PROJECT_NAME=sentinel-akxl
+# Wazuh Authentication
+WAZUH_INDEXER_PASSWORD=SecurePassword123
+WAZUH_API_PASSWORD=SecurePassword123
+# Threat Intelligence
+VIRUSTOTAL_API_KEY=your-virustotal-api-key
 ```
+```bash
+
 
 ### Configuration Files
 
 ```
 configs/
 ├── elk/
-│   ├── elasticsearch/elasticsearch.yml  # Cluster configuration
-│   ├── kibana/kibana.yml               # Dashboard settings
-│   └── logstash/conf.d/main.conf       # Processing pipeline
+│   ├── elasticsearch/elasticsearch.yml    # Cluster settings
+│   ├── kibana/kibana.yml                  # Dashboard settings  
+│   └── logstash/conf.d/main.conf          # Log processing pipeline
 └── wazuh/
-    ├── manager/wazuh_manager.conf       # SIEM rules and alerts
-    ├── rules/local_rules.xml            # Custom detection rules
-    └── indexer/wazuh.indexer.yml        # Storage configuration
+    ├── rules/local_rules.xml              # Custom detection rules
+    ├── manager/wazuh_manager.conf         # SIEM configuration
+    ├── ossec.conf.tpl                     # Wazuh config template
+    └── indexer/wazuh.indexer.yml          # Storage settings
 ```
 
 ## Management Commands
@@ -453,15 +479,18 @@ configs/
 ```bash
 # Complete system startup
 docker compose up -d
-docker compose -f docker-compose-wazuh.yml up -d
 
 # Graceful shutdown
 docker compose down
-docker compose -f docker-compose-wazuh.yml down
 
 # Service-specific operations
+# Available components: elasticsearch, kibana, logstash, wazuh-manager, wazuh-indexer, wazuh-dashboard, filebeat
+
+# Examples:
 docker compose restart elasticsearch
+docker compose restart wazuh-manager  
 docker compose logs -f kibana
+docker compose logs -f wazuh-dashboard
 docker stats
 ```
 
@@ -508,10 +537,12 @@ docker system prune -f
 # Check available memory
 free -h
 
-# Reduce memory allocation
-echo 'ES_MEM=1g' >> .env
+# Reduce memory allocation by editing docker-compose.yml
+# Change: "ES_JAVA_OPTS=-Xms2g -Xmx2g" 
+# To:     "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+
+# Restart after changes
 docker compose restart elasticsearch
-```
 
 #### Port Conflicts
 

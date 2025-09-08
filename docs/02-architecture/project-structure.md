@@ -42,10 +42,8 @@ Sentinel AK-XL Virtual SOC
 │       │   ├── filebeat.yml            # Wazuh manager log shipping
 │       │   └── wazuh_manager.conf      # Core SIEM detection settings
 │       ├── ossec.conf.tpl              # Wazuh configuration template
-│       ├── rules/
-│       │   └── local_rules.xml         # Custom detection rules for SOC scenarios
-│       └── ssl_certs/
-│           └── root-ca.pem             # SSL/TLS certificates for secure communication
+│       └── rules/
+│           └── local_rules.xml         # Custom detection rules for SOC scenarios
 ├── docker-compose.yml                  # ELK Stack container orchestration
 ├── scenarios-simulator/                # Attack simulation toolkit for SOC training
 │   ├── README.md                       # Simulation scenarios documentation
@@ -55,6 +53,8 @@ Sentinel AK-XL Virtual SOC
 │   │   └── network-activity-simulator.sh # Port scanning and network anomaly generation
 │   └── ssh-auth/
 │       └── ssh-auth-simulator.sh       # SSH brute force and authentication attack simulation
+├── wazuh-certificates/                 # SSL/TLS certificates for secure communication
+│   └── *.pem                           # Generated certificates and keys for all Wazuh components
 └── wazuh-certs-tool.sh                 # SSL certificate generation utility for Wazuh stack
 ```
 ### Command

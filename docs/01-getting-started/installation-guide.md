@@ -37,25 +37,24 @@ cd Sentiniel-soc
 ### 2. Environment Configuration
 
 #### Set Memory Limits
-Create or modify `.env` file based on your system:
+Aquí tienes una versión corta y clara para el README:
 
-**For 8GB RAM systems:**
-```env
-ES_MEM=1g
-KIBANA_MEM=512m
-LOGSTASH_MEM=512m
-WAZUH_MEM=1g
-COMPOSE_PROJECT_NAME=sentinel-akxl
+## 3. Memory Configuration (Optional)
+
+By default, the system is configured for 8-10GB RAM systems. If you have more RAM available, you can increase performance by manually editing the memory settings in `docker-compose.yml`:
+
+### For 16GB+ RAM Systems
+```bash
+# Edit these lines in docker-compose.yml:
+# Elasticsearch: Change "ES_JAVA_OPTS=-Xms1g -Xmx1g" to "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+# Logstash: Change "LS_JAVA_OPTS=-Xms512m -Xmx512m" to "LS_JAVA_OPTS=-Xms1g -Xmx1g"  
+# Wazuh-indexer: Change "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g" to "OPENSEARCH_JAVA_OPTS=-Xms2g -Xmx2g"
+
+# Restart services after changes
+docker compose restart
 ```
 
-**For 16GB+ RAM systems:**
-```env
-ES_MEM=4g
-KIBANA_MEM=1g
-LOGSTASH_MEM=2g
-WAZUH_MEM=3g
-COMPOSE_PROJECT_NAME=sentinel-akxl
-```
+**Note:** Default settings work fine for most users. Only modify if you have 16GB+ RAM and want better performance.
 
 #### Configure System Limits
 ```bash
@@ -157,7 +156,7 @@ docker exec -it sentinel-wazuh-manager bash -c "
 #### Generate Wazuh Certificates
 ```bash
 # Run certificate generation tool
-./wazuh-certs-tool.sh
+bash wazuh-certs-tool.sh -A
 
 # Apply certificates to containers
 docker compose restart wazuh-manager wazuh-indexer wazuh-dashboard
