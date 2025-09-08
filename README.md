@@ -188,10 +188,7 @@ The platform features four professional-grade dashboards designed for comprehens
 git clone https://github.com/AbimaelPerezVega/Sentinel-AK-XL.git
 cd Sentinel-AK-XL
 
-# 2. Certificates
-bash wazuh-certs-tool.sh -A
-
-# 3. Configure environment
+# 2. Configure environment
 cat > .env << EOF
 # Wazuh Authentication
 WAZUH_INDEXER_PASSWORD=SecurePassword123
@@ -201,9 +198,12 @@ WAZUH_API_PASSWORD=SecurePassword123
 VIRUSTOTAL_API_KEY=your-virustotal-api-key
 EOF
 
-# 4. System optimization
+# 3. System optimization
 sudo sysctl -w vm.max_map_count=262144
 echo 'vm.max_map_count=262144' | sudo tee -a /etc/sysctl.conf
+
+# 4. Certificates
+bash wazuh-certs-tool.sh -A
 
 # 5. Start all services
 docker compose up -d
@@ -265,7 +265,7 @@ free -h
 df -h
 ```
 
-#### 2. Environment Preparation
+### 2. Environment Preparation
 ```bash
 # Install Docker (Ubuntu/Debian)
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -446,7 +446,7 @@ docker exec -it sentinel-wazuh-manager \
 
 Key configuration parameters for deployment customization:
 
-.env
+###.env
 ```bash
 # Wazuh Authentication
 WAZUH_INDEXER_PASSWORD=SecurePassword123
@@ -459,7 +459,7 @@ VIRUSTOTAL_API_KEY=your-virustotal-api-key
 
 ### Configuration Files
 
-```
+```bash
 configs/
 ├── elk/
 │   ├── elasticsearch/elasticsearch.yml    # Cluster settings
