@@ -1,11 +1,11 @@
 # 🛡️ Sentinel AK-XL - Virtual Security Operations Center
 
-> [!NOTE]
-> A comprehensive Virtual SOC environment engineered for cybersecurity education and professional training, featuring enterprise-grade SIEM capabilities, real-time threat detection, and advanced analytics.
-
 <p align="center">
   <img src="media/images/sentinel-soc-overview.png" alt="Sentinel SOC Overview Dashboard" width="800"/>
 </p>
+
+> [!NOTE]
+> A comprehensive Virtual SOC environment engineered for cybersecurity education and professional training, featuring enterprise-grade SIEM capabilities, real-time threat detection, and advanced analytics.
 
 ## 📋 Table of Contents
 
