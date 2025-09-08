@@ -482,7 +482,9 @@ docker compose up -d
 docker compose down
 
 # Service-specific operations
-# Available components: elasticsearch, kibana, logstash, wazuh-manager, wazuh-indexer, wazuh-dashboard, filebeat
+
+# Available components:
+# elasticsearch, kibana, logstash, wazuh-manager,wazuh-indexer, wazuh-dashboard, filebeat
 
 # Examples:
 docker compose restart elasticsearch
