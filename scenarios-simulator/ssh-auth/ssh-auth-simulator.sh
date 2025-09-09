@@ -8,17 +8,31 @@
 
 # === First-time setup commands (inside container) ===
 # Copy script to Wazuh Manager:
-#   docker cp simulator-scripts/ssh-auth-simulator.sh sentinel-wazuh-manager:/usr/local/bin/ssh-auth-simulator
+#   docker cp ./scenarios-simulator/ssh-auth/ssh-auth-simulator.sh sentinel-wazuh-manager:/usr/local/bin/ssh-auth-simulator.sh
 #
 # Make it executable:
-#   docker exec -it sentinel-wazuh-manager chmod +x /usr/local/bin/ssh-auth-simulator
+#   docker exec -it sentinel-wazuh-manager chmod +x /usr/local/bin/ssh-auth-simulator.sh
 #
 # Run simulation:
 #   docker exec -it sentinel-wazuh-manager bash -lc \
 #     'mkdir -p /var/ossec/logs/test && \
-#      ssh-auth-simulator -l /var/ossec/logs/test/sshd.log -n 50 -v'
+#      /usr/local/bin/ssh-auth-simulator.sh -l /var/ossec/logs/test/sshd.log -n 50 -v'
 
 set -euo pipefail
+
+# --- Output control (shared contract) ---
+BANNER=true
+QUIET=false
+STEALTH=false
+if [ "${SIM_PARENT:-0}" = "1" ]; then BANNER=false; fi
+# Pre-parse minimal flags so we can honor them early
+for __arg in "$@"; do
+  case "$__arg" in
+    --no-banner) BANNER=false ;;
+    -q|--quiet)  QUIET=true ;;
+    --stealth)   STEALTH=true; QUIET=true ;;
+  esac
+done
 
 # === Configuration ===
 SCRIPT_NAME="ssh-auth-simulator"
@@ -38,39 +52,20 @@ WHITE='\033[1;37m'
 NC='\033[0m' # Reset / no color
 
 # === Logging helpers ===
-log_info() { echo -e "${BLUE}[INFO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
+log_info()    { $QUIET || $STEALTH || echo -e "${BLUE}[INFO]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 log_success() { echo -e "${GREEN}[SUCCESS]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
-log_warning() { echo -e "${YELLOW}[WARNING]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
+log_warning() { $QUIET && return 0 || echo -e "${YELLOW}[WARNING]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
+log_error()   { echo -e "${RED}[ERROR]${NC} $(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$SIMULATION_LOG"; }
 
 # === Global arrays for realistic simulation data ===
 declare -a SOURCE_IPS=(
-    # Suspicious IPs from various countries for GeoIP testing
-    "103.124.106.4"      # China - known for brute force
-    "185.220.101.45"     # Russia - TOR exit node
-    "189.201.241.25"     # Mexico - compromised hosts
-    "92.63.197.153"      # Netherlands - VPN services
-    "167.99.164.201"     # Germany - cloud hosting
-    "159.65.153.147"     # Singapore - cloud hosting
-    "46.101.230.157"     # UK - digital ocean
-    "134.209.24.42"      # India - compromised systems
-    "198.211.99.118"     # US - suspicious activity
-    "161.35.70.249"      # Canada - cloud hosting
-    "178.128.83.165"     # Australia - hosting provider
-    "68.183.44.143"      # France - VPS provider
-    "188.166.83.65"      # Spain - digital ocean
-    "165.22.203.84"      # Brazil - cloud services
-    "64.227.123.199"     # Italy - hosting
-    "142.93.222.179"     # Japan - VPS
-    "206.189.147.161"    # South Korea - cloud
-    "167.172.56.147"     # Turkey - hosting
-    "157.230.42.88"      # Poland - digital ocean
-    "178.62.193.217"     # Sweden - hosting
-    "159.89.174.23"      # Norway - cloud services
-    "46.101.166.19"      # Finland - hosting
-    "95.217.134.208"     # Czech Republic - hetzner
-    "51.15.228.88"       # Romania - OVH hosting
-    "194.147.32.101"     # Ukraine - compromised
+    "103.124.106.4" "185.220.101.45" "189.201.241.25" "92.63.197.153"
+    "167.99.164.201" "159.65.153.147" "46.101.230.157" "134.209.24.42"
+    "198.211.99.118" "161.35.70.249" "178.128.83.165" "68.183.44.143"
+    "188.166.83.65" "165.22.203.84" "64.227.123.199" "142.93.222.179"
+    "206.189.147.161" "167.172.56.147" "157.230.42.88" "178.62.193.217"
+    "159.89.174.23" "46.101.166.19" "95.217.134.208" "51.15.228.88"
+    "194.147.32.101"
 )
 
 declare -a USERNAMES=(
@@ -98,12 +93,12 @@ declare -a SSH_FAILURE_MESSAGES=(
 )
 
 declare -a ATTACK_PATTERNS=(
-    "single_attempt"     # One-off attempts
-    "slow_brute"         # Slow brute force (1-5 attempts per hour)
-    "fast_brute"         # Fast brute force (10+ attempts per minute)
-    "credential_spray"   # Many users, few passwords
-    "targeted_attack"    # Focused on specific accounts
-    "distributed"        # Multiple IPs, coordinated
+    "single_attempt"
+    "slow_brute"
+    "fast_brute"
+    "credential_spray"
+    "targeted_attack"
+    "distributed"
 )
 
 # Configuration options
@@ -140,38 +135,26 @@ ${YELLOW}Options:${NC}
     -n, --num-events NUM    Number of events to generate (default: 100)
     -d, --delay MIN-MAX     Delay range between events in seconds (default: 1-10)
     -p, --pattern PATTERN   Attack pattern: single_attempt, slow_brute, fast_brute,
-                           credential_spray, targeted_attack, distributed, mixed
+                            credential_spray, targeted_attack, distributed, mixed
     -l, --log-file PATH     Custom log file path (default: $LOG_FILE)
-    --dry-run              Show what would be generated without writing logs
-
-${YELLOW}Attack Patterns:${NC}
-    ${GREEN}single_attempt${NC}   - Individual failed login attempts
-    ${GREEN}slow_brute${NC}       - Slow brute force (1-5 attempts/hour)
-    ${GREEN}fast_brute${NC}       - Fast brute force (10+ attempts/minute)
-    ${GREEN}credential_spray${NC}  - Many users, few passwords
-    ${GREEN}targeted_attack${NC}   - Focused on high-value accounts
-    ${GREEN}distributed${NC}      - Multiple IPs, coordinated attack
-    ${GREEN}mixed${NC}            - Combination of all patterns (default)
+    --dry-run               Show what would be generated without writing logs
+    --no-banner             Hide header
+    -q, --quiet             Reduce output (keeps errors and summaries)
+    --stealth               No header, no config dump, no per-event output
 
 ${YELLOW}Examples:${NC}
-    # Generate 50 mixed authentication failures
     $0 -n 50
-
-    # Run continuous simulation with fast brute force pattern
     $0 -c -p fast_brute -d 1-3
-
-    # Generate targeted attack on admin accounts
     $0 -p targeted_attack -n 25 -v
-
-    # Test run without writing logs
     $0 --dry-run -n 10
 EOF
 }
 
 # Generate random timestamp within last 24 hours
 generate_timestamp() {
-    local random_seconds=$(shuf -i 1-86400 -n 1)  # Last 24 hours
-    local target_time=$(($(date +%s) - random_seconds))
+    local random_seconds
+    random_seconds=$(shuf -i 1-86400 -n 1)  # Last 24 hours
+    local target_time=$(( $(date +%s) - random_seconds ))
     date -d "@$target_time" '+%b %d %H:%M:%S'
 }
 
@@ -184,35 +167,35 @@ get_random_element() {
 # Generate SSH authentication failure log entry
 generate_ssh_failure() {
     local pattern="$1"
-    local timestamp=$(generate_timestamp)
+    local timestamp
+    timestamp=$(generate_timestamp)
     local hostname="sentinel-$(shuf -i 100-999 -n 1)"
-    local process_id=$(shuf -i 1000-9999 -n 1)
-    local source_ip=$(get_random_element SOURCE_IPS)
-    local port=$(shuf -i 1024-65535 -n 1)
+    local process_id
+    process_id=$(shuf -i 1000-9999 -n 1)
+    local source_ip
+    source_ip=$(get_random_element SOURCE_IPS)
+    local port
+    port=$(shuf -i 1024-65535 -n 1)
     local username=""
     local failure_type=""
     
     # Adjust generation based on attack pattern
     case "$pattern" in
         "targeted_attack")
-            # Focus on high-value accounts
             local high_value_users=("root" "admin" "administrator" "oracle" "postgres" "backup")
             username="${high_value_users[RANDOM % ${#high_value_users[@]}]}"
             failure_type="Failed password for"
             ;;
         "credential_spray")
-            # Many users, common passwords pattern
             username=$(get_random_element USERNAMES)
             failure_type="Failed password for"
             ;;
         "fast_brute"|"slow_brute")
-            # Brute force on common accounts
             local common_users=("root" "admin" "user" "test" "ubuntu")
             username="${common_users[RANDOM % ${#common_users[@]}]}"
             failure_type="Failed password for"
             ;;
         *)
-            # Mixed/random pattern
             username=$(get_random_element USERNAMES)
             failure_type=$(get_random_element SSH_FAILURE_MESSAGES)
             ;;
@@ -247,77 +230,82 @@ generate_attack_sequence() {
     
     case "$pattern" in
         "fast_brute")
-            # Quick succession of attempts from same IP
-            local attack_ip=$(get_random_element SOURCE_IPS)
+            local attack_ip
+            attack_ip=$(get_random_element SOURCE_IPS)
             local target_user="root"
             
             for ((i=1; i<=num_events; i++)); do
-                local timestamp=$(date '+%b %d %H:%M:%S')
+                local timestamp
+                timestamp=$(date '+%b %d %H:%M:%S')
                 local hostname="sentinel-web-$(shuf -i 1-3 -n 1)"
-                local process_id=$(shuf -i 1000-9999 -n 1)
+                local process_id
+                process_id=$(shuf -i 1000-9999 -n 1)
                 local port=22
                 
                 local log_entry="$timestamp $hostname sshd[$process_id]: Failed password for $target_user from $attack_ip port $port ssh2"
                 echo "$log_entry" >> "$LOG_FILE"
                 
-                [ "$VERBOSE" = true ] && echo -e "${CYAN}[FAST_BRUTE]${NC} $log_entry"
+                [ "$VERBOSE" = true ] && ! $STEALTH && echo -e "${CYAN}[FAST_BRUTE]${NC} $log_entry"
                 
                 events_generated=$((events_generated + 1))
-                sleep $(shuf -i 1-3 -n 1)  # Quick succession
+                sleep "$(shuf -i 1-3 -n 1)"
             done
             ;;
             
         "distributed")
-            # Coordinated attack from multiple IPs
             local target_user="admin"
             local attack_ips=("${SOURCE_IPS[@]:0:5}")  # Use first 5 IPs
             
             for ((i=1; i<=num_events; i++)); do
                 local attack_ip="${attack_ips[$((i % ${#attack_ips[@]}))]}"
-                local log_entry=$(generate_ssh_failure "targeted_attack")
+                local log_entry
+                log_entry=$(generate_ssh_failure "targeted_attack")
                 
                 # Replace IP in generated entry
                 log_entry=$(echo "$log_entry" | sed "s/from [0-9.]\+/from $attack_ip/")
                 
                 echo "$log_entry" >> "$LOG_FILE"
-                [ "$VERBOSE" = true ] && echo -e "${PURPLE}[DISTRIBUTED]${NC} $log_entry"
+                [ "$VERBOSE" = true ] && ! $STEALTH && echo -e "${PURPLE}[DISTRIBUTED]${NC} $log_entry"
                 
                 events_generated=$((events_generated + 1))
-                sleep $(shuf -i 2-8 -n 1)  # Moderate delay
+                sleep "$(shuf -i 2-8 -n 1)"
             done
             ;;
             
         "credential_spray")
-            # Attack many users with common passwords
-            local attack_ip=$(get_random_element SOURCE_IPS)
+            local attack_ip
+            attack_ip=$(get_random_element SOURCE_IPS)
             
             for ((i=1; i<=num_events; i++)); do
-                local username=$(get_random_element USERNAMES)
-                local timestamp=$(date '+%b %d %H:%M:%S')
+                local username
+                username=$(get_random_element USERNAMES)
+                local timestamp
+                timestamp=$(date '+%b %d %H:%M:%S')
                 local hostname="sentinel-app-$(shuf -i 1-5 -n 1)"
-                local process_id=$(shuf -i 1000-9999 -n 1)
+                local process_id
+                process_id=$(shuf -i 1000-9999 -n 1)
                 
                 local log_entry="$timestamp $hostname sshd[$process_id]: Failed password for $username from $attack_ip port 22 ssh2"
                 echo "$log_entry" >> "$LOG_FILE"
                 
-                [ "$VERBOSE" = true ] && echo -e "${YELLOW}[CRED_SPRAY]${NC} $log_entry"
+                [ "$VERBOSE" = true ] && ! $STEALTH && echo -e "${YELLOW}[CRED_SPRAY]${NC} $log_entry"
                 
                 events_generated=$((events_generated + 1))
-                sleep $(shuf -i 5-15 -n 1)  # Slower to avoid detection
+                sleep "$(shuf -i 5-15 -n 1)"
             done
             ;;
             
         *)
-            # Default mixed pattern
             for ((i=1; i<=num_events; i++)); do
                 local selected_pattern=${ATTACK_PATTERNS[RANDOM % ${#ATTACK_PATTERNS[@]}]}
-                local log_entry=$(generate_ssh_failure "$selected_pattern")
+                local log_entry
+                log_entry=$(generate_ssh_failure "$selected_pattern")
                 
                 echo "$log_entry" >> "$LOG_FILE"
-                [ "$VERBOSE" = true ] && echo -e "${GREEN}[MIXED]${NC} $log_entry"
+                [ "$VERBOSE" = true ] && ! $STEALTH && echo -e "${GREEN}[MIXED]${NC} $log_entry"
                 
                 events_generated=$((events_generated + 1))
-                sleep $(shuf -i $DELAY_MIN-$DELAY_MAX -n 1)
+                sleep "$(shuf -i "$DELAY_MIN"-"$DELAY_MAX" -n 1)"
             done
             ;;
     esac
@@ -329,15 +317,13 @@ generate_attack_sequence() {
 check_requirements() {
     log_info "Checking system requirements..."
     
-    # Check if we can write to the log file
     if [ ! -w "$(dirname "$LOG_FILE")" ]; then
         log_error "Cannot write to log directory $(dirname "$LOG_FILE")"
         log_info "Suggestion: Run with sudo or change log file path with -l option"
         exit 1
     fi
     
-    # Check for required tools
-    local required_tools=("shuf" "date" "tee")
+    local required_tools=("shuf" "date" "tee" "sed")
     for tool in "${required_tools[@]}"; do
         if ! command -v "$tool" >/dev/null 2>&1; then
             log_error "Required tool '$tool' not found"
@@ -345,7 +331,6 @@ check_requirements() {
         fi
     done
     
-    # Create simulation log file
     touch "$SIMULATION_LOG" 2>/dev/null || {
         log_error "Cannot create simulation log file: $SIMULATION_LOG"
         exit 1
@@ -359,22 +344,24 @@ run_simulation() {
     local dry_run="$1"
     
     log_info "Starting SSH Authentication Simulator"
-    log_info "Configuration:"
-    log_info "  - Events: $MAX_EVENTS"
-    log_info "  - Pattern: $ATTACK_PATTERN"
-    log_info "  - Delay: ${DELAY_MIN}-${DELAY_MAX} seconds"
-    log_info "  - Continuous: $CONTINUOUS"
-    log_info "  - Log File: $LOG_FILE"
-    log_info "  - Dry Run: $dry_run"
+    if ! $STEALTH; then
+      log_info "Configuration:"
+      log_info "  - Events: $MAX_EVENTS"
+      log_info "  - Pattern: $ATTACK_PATTERN"
+      log_info "  - Delay: ${DELAY_MIN}-${DELAY_MAX} seconds"
+      log_info "  - Continuous: $CONTINUOUS"
+      log_info "  - Log File: $LOG_FILE"
+      log_info "  - Dry Run: $dry_run"
+    fi
     
-    # Store PID for cleanup
     echo $$ > "$PID_FILE"
     
     if [ "$dry_run" = true ]; then
         log_info "DRY RUN - Showing sample events that would be generated:"
         for ((i=1; i<=5; i++)); do
-            local sample_event=$(generate_ssh_failure "$ATTACK_PATTERN")
-            echo -e "${CYAN}[SAMPLE $i]${NC} $sample_event"
+            local sample_event
+            sample_event=$(generate_ssh_failure "$ATTACK_PATTERN")
+            ! $STEALTH && echo -e "${CYAN}[SAMPLE $i]${NC} $sample_event"
         done
         log_info "Dry run completed. Use without --dry-run to generate actual events."
         return
@@ -392,7 +379,7 @@ run_simulation() {
                 log_info "Generated $event_count events so far..."
             fi
             
-            sleep $(shuf -i $DELAY_MIN-$DELAY_MAX -n 1)
+            sleep "$(shuf -i "$DELAY_MIN"-"$DELAY_MAX" -n 1)"
         done
     else
         generate_attack_sequence "$ATTACK_PATTERN" "$MAX_EVENTS"
@@ -413,6 +400,20 @@ parse_arguments() {
                 ;;
             -v|--verbose)
                 VERBOSE=true
+                shift
+                ;;
+            --no-banner)
+                BANNER=false
+                shift
+                ;;
+            -q|--quiet)
+                QUIET=true
+                shift
+                ;;
+            --stealth)
+                STEALTH=true
+                QUIET=true
+                VERBOSE=false
                 shift
                 ;;
             -c|--continuous)
@@ -469,12 +470,14 @@ parse_arguments() {
 
 # Main function
 main() {
-    echo -e "${WHITE}"
-    echo "=================================================================="
-    echo "           SSH Authentication Simulator"
-    echo "       Sentinel SOC Training Environment"
-    echo "=================================================================="
-    echo -e "${NC}"
+    if $BANNER; then
+      echo -e "${WHITE}"
+      echo "=================================================================="
+      echo "           SSH Authentication Simulator"
+      echo "       Sentinel SOC Training Environment"
+      echo "=================================================================="
+      echo -e "${NC}"
+    fi
     
     # Parse command line arguments
     parse_arguments "$@"

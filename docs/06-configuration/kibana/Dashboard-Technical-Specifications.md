@@ -1,6 +1,3 @@
-Of course! Here is the same detailed technical breakdown, translated into English.
-
----
 ## 1. Enhanced Network Analysis 📈
 **Primary Data Source:** `sentinel-logs-*`
 

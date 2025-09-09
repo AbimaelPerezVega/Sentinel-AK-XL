@@ -24,10 +24,23 @@ LOG_FILE="/var/ossec/logs/test/network.log"
 SIM_LOG="/var/log/network-simulation.log"
 PID_FILE="/tmp/network-activity-simulator.pid"
 
+# --- Output control (shared contract) ---
+BANNER=true
+QUIET=false
+STEALTH=false
+if [ "${SIM_PARENT:-0}" = "1" ]; then BANNER=false; fi
+for __arg in "$@"; do
+  case "$__arg" in
+    --no-banner) BANNER=false ;;
+    -q|--quiet)  QUIET=true ;;
+    --stealth)   STEALTH=true; QUIET=true ;;
+  esac
+done
+
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; NC='\033[0m'
-info(){ echo -e "${BLUE}[INFO]$(date '+ %F %T')${NC} $*" | tee -a "$SIM_LOG" ; }
+info(){ $QUIET || $STEALTH || echo -e "${BLUE}[INFO]$(date '+ %F %T')${NC} $*" | tee -a "$SIM_LOG" ; }
 ok(){   echo -e "${GREEN}[OK]$(date '+ %F %T')${NC} $*"  | tee -a "$SIM_LOG" ; }
-warn(){ echo -e "${YELLOW}[WARN]$(date '+ %F %T')${NC} $*"| tee -a "$SIM_LOG" ; }
+warn(){ $QUIET && return 0 || echo -e "${YELLOW}[WARN]$(date '+ %F %T')${NC} $*"| tee -a "$SIM_LOG" ; }
 
 VERBOSE=false
 CONTINUOUS=false
@@ -57,7 +70,7 @@ emit_line(){
   # Log line formatted like iptables/UFW
   local line="$ts $host $proc $action IN=eth0 OUT= MAC=de:ad:be:ef:00:01 SRC=$src DST=$dst LEN=$(rand 60 120) TOS=0x00 PREC=0x00 TTL=$(rand 32 64) ID=$(rand 10000 65000) DF PROTO=$proto SPT=$spt DPT=$dpt $extra"
   echo "$line" >> "$LOG_FILE"
-  [ "$VERBOSE" = true ] && echo "$line"
+  [ "$VERBOSE" = true ] && ! $STEALTH && echo "$line"
 }
 
 # === Attack patterns ===
@@ -96,10 +109,10 @@ portscan_slow(){
 # === Execution control ===
 run_once(){
   case "$PATTERN" in
-    single_flow) single_flow ;;
-    udp_probe) udp_probe ;;
-    portscan_fast) portscan_fast ;;
-    portscan_slow) portscan_slow ;;
+    single_flow)    single_flow ;;
+    udp_probe)      udp_probe ;;
+    portscan_fast)  portscan_fast ;;
+    portscan_slow)  portscan_slow ;;
     mixed)
       case "$(rand 1 4)" in
         1) single_flow ;;
@@ -115,14 +128,14 @@ run_once(){
 usage(){
   cat <<EOF
 Network Activity Simulator
-Usage: $0 [-n NUM] [-p PATTERN] [-d MIN-MAX] [-c] [-v] [-l LOGFILE]
+Usage: $0 [-n NUM] [-p PATTERN] [-d MIN-MAX] [-c] [-v] [-l LOGFILE] [--no-banner] [-q|--quiet] [--stealth]
 
 Patterns:
   single_flow | portscan_fast | portscan_slow | udp_probe | mixed (default)
 
 Examples:
   $0 -n 100 -p mixed -v
-  $0 -p portscan_fast -n 60 -d 0-1
+  $0 -p portscan_fast -n 60 -d 0-1 --stealth
 EOF
 }
 
@@ -130,14 +143,17 @@ EOF
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n|--num-events) MAX_EVENTS="$2"; shift 2 ;;
-    -p|--pattern) PATTERN="$2"; shift 2 ;;
+    -p|--pattern)    PATTERN="$2"; shift 2 ;;
     -d|--delay)
       [[ "$2" =~ ^([0-9]+)-([0-9]+)$ ]] || { echo "Delay debe ser MIN-MAX"; exit 1; }
       DELAY_MIN="${BASH_REMATCH[1]}"; DELAY_MAX="${BASH_REMATCH[2]}"; shift 2 ;;
     -c|--continuous) CONTINUOUS=true; shift ;;
-    -l|--log-file) LOG_FILE="$2"; shift 2 ;;
-    -v|--verbose) VERBOSE=true; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -l|--log-file)   LOG_FILE="$2"; shift 2 ;;
+    -v|--verbose)    VERBOSE=true; shift ;;
+    --no-banner)     BANNER=false; shift ;;
+    -q|--quiet)      QUIET=true; shift ;;
+    --stealth)       STEALTH=true; QUIET=true; VERBOSE=false; shift ;;
+    -h|--help)       usage; exit 0 ;;
     *) echo "Opción inválida: $1"; usage; exit 1 ;;
   esac
 done
@@ -147,8 +163,8 @@ touch "$SIM_LOG" || true
 mkdir -p "$(dirname "$LOG_FILE")"
 : > "$LOG_FILE" || true
 
-info "Log destino: $LOG_FILE"
-info "Patrón: $PATTERN | Eventos: $MAX_EVENTS | Delay: ${DELAY_MIN}-${DELAY_MAX}s | Continuous: $CONTINUOUS"
+! $STEALTH && info "Log destino: $LOG_FILE"
+! $STEALTH && info "Patrón: $PATTERN | Eventos: $MAX_EVENTS | Delay: ${DELAY_MIN}-${DELAY_MAX}s | Continuous: $CONTINUOUS"
 
 # === Main execution ===
 if $CONTINUOUS; then
@@ -156,7 +172,7 @@ if $CONTINUOUS; then
   while true; do
     run_once
     i=$((i+1))
-    (( i % 10 == 0 )) && info "Generados $i eventos..."
+    (( i % 10 == 0 )) && ! $STEALTH && info "Generados $i eventos..."
     sleep "$(rand "$DELAY_MIN" "$DELAY_MAX")"
   done
 else
