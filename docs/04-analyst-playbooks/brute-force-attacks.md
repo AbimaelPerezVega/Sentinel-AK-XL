@@ -380,7 +380,7 @@ Incident Summary:
 - **Exclude service accounts** from standard rules
 
 ## References
-- [NIST SP 800-61: Computer Security Incident Handling Guide](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final)
+- [NIST SP 800-61: Computer Security Incident Handling Guide](https://csrc.nist.gov/pubs/sp/800/61/r3/final)
 - [MITRE ATT&CK: Brute Force (T1110)](https://attack.mitre.org/techniques/T1110/)
 - [Wazuh Authentication Rules Documentation](https://documentation.wazuh.com/current/user-manual/ruleset/rules-classification.html#authentication)
 - [OWASP Authentication Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
