@@ -541,6 +541,75 @@ EOF
     fi
 }
 
+display_project_commands() {
+    echo ""
+    echo -e "${BLUE}${BOLD}🚀 SENTINEL AK-XL PROJECT COMMANDS${NC}"
+    echo -e "${BLUE}===============================================${NC}"
+    echo ""
+    echo -e "${BLUE}📋 Initial Setup (Run once):${NC}"
+    echo -e "${BLUE}   ./initial_setup.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Sets up certificates, initializes services, and configures the SOC environment"
+    echo ""
+    echo -e "${BLUE}🔧 Project Management:${NC}"
+    echo -e "${BLUE}   ./scripts/start.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Start all SOC services (Wazuh, ELK Stack, etc.)"
+    echo ""
+    echo -e "${BLUE}   ./scripts/stop.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Stop all SOC services"
+    echo ""
+    echo -e "${BLUE}   docker-compose up -d${NC}"
+    echo -e "     ${BOLD}→${NC} Alternative: Start services using Docker Compose directly"
+    echo ""
+    echo -e "${BLUE}   docker-compose down${NC}"
+    echo -e "     ${BOLD}→${NC} Alternative: Stop services using Docker Compose directly"
+    echo ""
+    echo -e "${BLUE}🔍 Monitoring & Status:${NC}"
+    echo -e "${BLUE}   ./scripts/monitoring/status.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Check status of all services"
+    echo ""
+    echo -e "${BLUE}   ./scripts/monitoring/health.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Perform health checks on all components"
+    echo ""
+    echo -e "${BLUE}   ./scripts/monitoring/logs.sh${NC}"
+    echo -e "     ${BOLD}→${NC} View aggregated logs from all services"
+    echo ""
+    echo -e "${BLUE}🎯 Attack Simulations:${NC}"
+    echo -e "${BLUE}   ./scenarios-simulator/ssh-auth/ssh-auth-simulator.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Simulate SSH brute force attacks"
+    echo ""
+    echo -e "${BLUE}   ./scenarios-simulator/malware-drop/malware-drop-simulator.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Simulate malware detection scenarios"
+    echo ""
+    echo -e "${BLUE}   ./scenarios-simulator/network/network-activity-simulator.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Simulate network-based attacks"
+    echo ""
+    echo -e "${BLUE}🌐 Access Points:${NC}"
+    echo -e "${BLUE}   Kibana Dashboard: ${BOLD}http://localhost:5601${NC}"
+    echo -e "     ${BOLD}→${NC} Main SOC analytics and visualization interface"
+    echo ""
+    echo -e "${BLUE}   Wazuh Dashboard: ${BOLD}https://localhost:443${NC}"
+    echo -e "     ${BOLD}→${NC} Wazuh security monitoring interface"
+    echo ""
+    echo -e "${BLUE}🧪 Testing & Validation:${NC}"
+    echo -e "${BLUE}   ./scripts/test/validate.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Run system validation tests"
+    echo ""
+    echo -e "${BLUE}   ./scripts/test/alerts.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Test alert generation and processing"
+    echo ""
+    echo -e "${BLUE}   ./scripts/test/integration.sh${NC}"
+    echo -e "     ${BOLD}→${NC} Run integration tests between components"
+    echo ""
+    echo -e "${BLUE}===============================================${NC}"
+    echo -e "${BOLD}💡 Quick Start Sequence:${NC}"
+    echo -e "  ${BOLD}1.${NC} Edit .env file with your API keys"
+    echo -e "  ${BOLD}2.${NC} Run: ${BLUE}./initial_setup.sh${NC}"
+    echo -e "  ${BOLD}3.${NC} Wait for setup completion (~5-10 minutes)"
+    echo -e "  ${BOLD}4.${NC} Access Kibana: ${BLUE}http://localhost:5601${NC}"
+    echo -e "  ${BOLD}5.${NC} Start simulations: ${BLUE}./scenarios-simulator/*/[scenario]-simulator.sh${NC}"
+    echo ""
+}
+
 # --- Main execution ---
 main() {
     display_banner
@@ -556,6 +625,9 @@ main() {
     
     # Create .env template if it doesn't exist
     create_env_template
+    
+    # Display project commands
+    display_project_commands
     
     echo ""
     bold "📚 Additional Resources:"
