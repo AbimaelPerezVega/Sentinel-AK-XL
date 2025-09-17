@@ -63,7 +63,7 @@ cat << 'EOF'
    \_/_/   \_\_____|___|____/_/   \_\_| \___/|_| \_\    
 EOF
 echo -e "${NC}"
-bold "           🛡️  AUTOMATED SETUP VALIDATOR  🛡️"
+bold "    ---------- AUTOMATED SETUP VALIDATOR ----------"
 echo ""
 info "Checking system requirements for Sentinel AK-XL Virtual SOC..."
 echo ""
