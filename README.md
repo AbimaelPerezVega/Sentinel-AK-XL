@@ -381,7 +381,7 @@ Overall Progress: ████████████████████ 1
 
 The platform includes an interactive Training Manager (`soc-training-manager.sh`) that provides a comprehensive menu-driven interface for conducting SOC training exercises:
 
-<img src="media/images/soc-training-manager-menu.png" alt="SOC Training Manager Interface" width="600"/>
+<img src="media/images/soc-training-manager-menu.jpg" alt="SOC Training Manager Interface" width="600"/>
 
 #### Key Features
 
