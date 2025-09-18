@@ -118,7 +118,6 @@ Creates/owns required directories in the container:
 * **OFF (default):** Verbose simulator output (banners + event lines)
 * **ON:** Suppresses banners and reduces per-event chatter (manager still tells you what’s being generated).
 
-> If you added the optional persistence patch, the mode is saved in `~/.soc-training.rc`.
 
 ---
 
@@ -219,12 +218,6 @@ Creates/owns required directories in the container:
 
 ---
 
-## License & Credits
-
-* Internal training tool for Sentinel-style SOC labs.
-* ASCII art and structure adapted for clarity in teaching environments.
-
----
 
 ## Shortcuts / One-liners
 

@@ -373,9 +373,57 @@ Overall Progress: ████████████████████ 1
 
 ### Attack Simulation Suite
 
-The platform includes comprehensive attack simulation scripts for realistic SOC training:
+### SOC Training Manager
+
+## Training Scenarios
+
+### SOC Training Manager
+
+The platform includes an interactive Training Manager (`soc-training-manager.sh`) that provides a comprehensive menu-driven interface for conducting SOC training exercises:
+
+<img src="media/images/soc-training-manager-menu.png" alt="SOC Training Manager Interface" width="600"/>
+
+#### Key Features
+
+- **Interactive TUI Menu**: No command flags to memorize - simple point-and-click training execution
+- **Dual Training Modes**: 
+  - **Instructor Mode**: Select specific attack scenarios for targeted learning
+  - **Student Mode**: Unknown scenario generator with session keys for assessment
+- **Automated Setup**: One-click deployment of all simulation scripts into containers
+- **Environment Management**: Built-in health checks and data reset capabilities
+- **Stealth Mode**: Toggle verbose/quiet output for different training environments
+
+#### Quick Training Session
+
+```bash
+# Start the training manager
+./soc-training-manager.sh
+
+# Menu options available:
+# 1. Start Training Session (Instructor/Student modes)
+# 2. Clean Data (Reset environment between exercises)  
+# 3. Check System Status (Verify all services)
+# 4. Copy Simulators to Container (Deploy scripts)
+# 5. Toggle Stealth Mode (Control output verbosity)
+```
+
+> [!TIP]
+> **For detailed usage instructions, scenario descriptions, and troubleshooting**: See [SOC Training Manager Guide](docs/05-simulation-scenarios/soc-training-manager.md)
+
+**Student Assessment Features:**
+- Session key generation for unknown scenarios
+- Automated logging of training exercises
+- Session verification for instructor review
+
+### Attack Simulation Suite
+
+The platform includes comprehensive attack simulation scripts for realistic SOC training. Each scenario can be executed either through the SOC Training Manager (recommended) or manually using command-line interfaces:
 
 #### 1. SSH Authentication Attacks
+
+**Via Training Manager:** Select "SSH Brute Force Attack" from the Instructor Mode menu
+
+**Manual Execution:**
 ```bash
 # Copy simulator to Wazuh container
 docker cp scenarios-simulator/ssh-auth/ssh-auth-simulator.sh \
@@ -393,6 +441,10 @@ docker exec -it sentinel-wazuh-manager \
 - Incident response procedures
 
 #### 2. Malware Detection Scenarios
+
+**Via Training Manager:** Select "Malware Drop Simulation" from the Instructor Mode menu
+
+**Manual Execution:**
 ```bash
 # Deploy malware simulator
 docker cp scenarios-simulator/malware-drop/malware-drop-simulator.sh \
@@ -410,6 +462,10 @@ docker exec -it sentinel-wazuh-manager \
 - Hash reputation assessment
 
 #### 3. Network Reconnaissance
+
+**Via Training Manager:** Select "Network Port Scanning" from the Instructor Mode menu
+
+**Manual Execution:**
 ```bash
 # Deploy network simulator
 docker cp scenarios-simulator/network/network-activity-simulator.sh \
@@ -426,7 +482,19 @@ docker exec -it sentinel-wazuh-manager \
 - Traffic pattern analysis
 - Network-based threat hunting
 
+#### 4. Mixed Attack Scenarios
+
+**Via Training Manager:** Select "Mixed Attack Scenario" from the Instructor Mode menu for multi-vector campaigns
+
+**Training Objectives:**
+- Complex threat correlation
+- Multi-stage attack detection
+- Advanced incident response
+- Cross-domain security analysis
+
 ### Learning Outcomes
+
+Each scenario generates realistic security events that trigger appropriate SIEM rules and populate the SOC dashboards for hands-on analysis.
 
 **Technical Competencies:**
 - SIEM platform administration and configuration
