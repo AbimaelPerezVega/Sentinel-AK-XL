@@ -687,9 +687,6 @@ This project is licensed under the MIT License
 
 ---
 
-> **Success**
-> Sentinel AK-XL represents a comprehensive approach to cybersecurity education, providing hands-on experience with enterprise-grade security tools and real-world attack scenarios. The platform serves as a bridge between academic learning and professional cybersecurity operations.
-
 **Repository**: https://github.com/AbimaelPerezVega/Sentinel-AK-XL  
 **Version**: 1.0  
 **Status**: Production Ready  
