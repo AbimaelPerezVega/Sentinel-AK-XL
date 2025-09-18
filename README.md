@@ -371,12 +371,6 @@ Overall Progress: ████████████████████ 1
 
 ## Training Scenarios
 
-### Attack Simulation Suite
-
-### SOC Training Manager
-
-## Training Scenarios
-
 ### SOC Training Manager
 
 The platform includes an interactive Training Manager (`soc-training-manager.sh`) that provides a comprehensive menu-driven interface for conducting SOC training exercises:
